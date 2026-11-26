@@ -16,11 +16,11 @@
 <meta name="twitter:image" content="https://fastworkdata.vercel.app/og-image.png">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{--ac:#141416;--ac2:#1f9a8a;--tx:#141416;--mu:rgba(20,20,22,.6);--gl:rgba(255,255,255,.5);--bd:rgba(255,255,255,.85);--bg:radial-gradient(900px 600px at 80% 0%,rgba(255,255,255,.9),transparent 60%),#e6e6ea;--sh:0 16px 40px rgba(20,20,30,.12),inset 0 1px 0 rgba(255,255,255,.9);--th:#f1f4f8;--sel:#141416;--selt:#fff;--ct:#2a2a30;--cg:rgba(0,0,0,.08);--c1:#141416;--c2:#1f9a8a;--c3:#6b6b75;--c4:#3a3a40;--c5:#9a9aa5;--c6:#5a5a62}
-html.dark{--ac:#f5f5f7;--ac2:#7fe3d6;--tx:#f5f5f7;--mu:rgba(245,245,247,.55);--gl:rgba(255,255,255,.06);--bd:rgba(255,255,255,.1);--bg:radial-gradient(900px 600px at 80% 0%,rgba(140,140,150,.22),transparent 60%),#17171a;--sh:0 20px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);--th:#1c1c20;--sel:#f5f5f7;--selt:#141416;--ct:#cfd2da;--cg:rgba(255,255,255,.06);--c1:#f5f5f7;--c2:#7fe3d6;--c3:#8c8c96;--c4:#e6e1d6;--c5:#a9a9b3;--c6:#d9d2c5}
+:root{--ac:#141416;--ac2:#1f9a8a;--tx:#141416;--mu:rgba(20,20,22,.72);--gl:rgba(255,255,255,.5);--bd:rgba(255,255,255,.85);--bg:radial-gradient(900px 600px at 80% 0%,rgba(255,255,255,.9),transparent 60%),#e6e6ea;--sh:0 16px 40px rgba(20,20,30,.12),inset 0 1px 0 rgba(255,255,255,.9);--th:#f1f4f8;--sel:#141416;--selt:#fff;--ct:#2a2a30;--cg:rgba(0,0,0,.08);--c1:#141416;--c2:#1f9a8a;--c3:#6b6b75;--c4:#3a3a40;--c5:#9a9aa5;--c6:#5a5a62}
+html.dark{--ac:#f5f5f7;--ac2:#7fe3d6;--tx:#f5f5f7;--mu:rgba(245,245,247,.72);--gl:rgba(255,255,255,.06);--bd:rgba(255,255,255,.1);--bg:radial-gradient(900px 600px at 80% 0%,rgba(140,140,150,.22),transparent 60%),#17171a;--sh:0 20px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);--th:#1c1c20;--sel:#f5f5f7;--selt:#141416;--ct:#cfd2da;--cg:rgba(255,255,255,.06);--c1:#f5f5f7;--c2:#7fe3d6;--c3:#8c8c96;--c4:#e6e1d6;--c5:#a9a9b3;--c6:#d9d2c5}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%}
 body{font-family:'Sarabun',sans-serif;color:var(--tx);background:var(--bg);background-attachment:fixed;min-height:100vh}
@@ -68,7 +68,18 @@ body.edit .glass[data-cid]{outline:1px dashed rgba(255,179,122,.45);outline-offs
 .mvb{padding:4px 10px;font-size:.8rem}
 .brand{width:30px;height:30px;border-radius:9px;overflow:hidden;display:block;flex:none}
 .brand svg{width:30px;height:30px;display:block}
-#menu{background:var(--sel);color:var(--selt);border-color:transparent;box-shadow:var(--sh)}
+#menu{position:relative;width:44px;height:44px;padding:0;border-radius:14px;display:block;color:#141416;background:#ffffff;border:1px solid rgba(20,20,22,.14);box-shadow:0 6px 16px rgba(20,20,30,.22),inset 0 1px 0 #fff;transition:transform .15s,box-shadow .2s}
+html.dark #menu{color:#f5f5f7;background:#2a2a30;border-color:rgba(255,255,255,.14);box-shadow:0 6px 16px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1)}
+#menu:hover{box-shadow:0 10px 22px rgba(20,20,30,.28),inset 0 1px 0 #fff}
+html.dark #menu:hover{box-shadow:0 10px 22px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.1)}
+#menu:active{transform:scale(.94)}
+#menu span{position:absolute;left:12px;right:12px;height:2px;border-radius:2px;background:currentColor;transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .2s}
+#menu span:nth-child(1){top:14px}
+#menu span:nth-child(2){top:21px}
+#menu span:nth-child(3){top:28px}
+body.open #menu span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.open #menu span:nth-child(2){opacity:0}
+body.open #menu span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .ios{width:44px;height:44px;border:0;border-radius:12px;display:grid;place-items:center;cursor:pointer;background:linear-gradient(145deg,#4a4a52,#1e1e22);box-shadow:0 6px 18px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.2)}
 .ios:active{transform:scale(.96)}
 #ebar{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:8px;padding:8px 12px;border-radius:999px}
@@ -76,7 +87,7 @@ body.edit .glass[data-cid]{outline:1px dashed rgba(255,179,122,.45);outline-offs
 /* ===== หน้าแรก: scrollytelling ===== */
 body.isIntro main{padding:0}
 :root{--cardf:#ffffff;--cardt:#d4f0eb;--barf:#e8e2d6;--line:rgba(20,20,22,.12)}
-.intro{--hal:#e6e6ea;--sc:#168a7a;--glow:rgba(22,138,122,.28)}
+.intro{--hal:#e6e6ea;--sc:#1f9a8a;--glow:rgba(31,154,138,.28)}
 html.dark{--cardf:#1f3336;--cardt:#2f5558;--barf:#2b2b30;--line:rgba(255,255,255,.1)}
 html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 .intro *{box-sizing:border-box}
@@ -84,8 +95,8 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 .intro .pill{display:inline-block;background:var(--sel);color:var(--selt);padding:11px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem}
 .intro .pill.ghost{background:transparent;color:var(--tx);border:1px solid var(--tx)}
 .intro .hero{min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 56px 40px;max-width:1280px;margin:0 auto}
-.intro h1{font-family:'Noto Serif Thai',serif;font-weight:700;font-size:clamp(2.6rem,6vw,5rem);line-height:1.1;margin:0 0 22px}
-.intro h2{font-family:'Noto Serif Thai',serif;font-size:clamp(2rem,4.4vw,3.6rem);margin:0 0 18px}
+.intro h1{font-family:Sarabun,sans-serif;font-weight:700;font-size:clamp(2.6rem,6vw,5rem);line-height:1.1;margin:0 0 22px}
+.intro h2{font-family:Sarabun,sans-serif;font-size:clamp(2rem,4.4vw,3.6rem);margin:0 0 18px}
 .intro .lead{font-size:1.05rem;color:var(--mu);max-width:500px;line-height:1.7;margin:0 auto 30px}
 .intro .btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .intro .story{height:500vh;position:relative}
@@ -108,12 +119,12 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 @media (prefers-reduced-motion:reduce){.intro .pop{opacity:1}.intro .pop.in,.intro .cap>.in{animation:none}}
 .intro .cap{grid-column:1;grid-row:1;align-self:center;justify-self:start;z-index:4;max-width:400px}
 .intro .cap em{display:block;font-style:normal;font-size:.8rem;letter-spacing:.14em;color:var(--sc);font-weight:700;margin-bottom:18px}
-.intro .cap b{display:block;font-family:'Noto Serif Thai',serif;font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.2;margin-bottom:18px}
+.intro .cap b{display:block;font-family:Sarabun,sans-serif;font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.2;margin-bottom:18px}
 .intro .cap span{display:block;font-size:1rem;line-height:1.7;color:var(--mu);margin-bottom:28px}
 .intro .dots{position:absolute;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:6}
 .intro .dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--tx);opacity:.35;transition:.25s}
 .intro .dots i.on{background:var(--tx);opacity:1;transform:scale(1.25)}
-.intro .bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:5}
+.intro .bar{display:none}
 .intro .bar i{display:block;height:100%;width:0;background:var(--tx)}
 .intro .d-win{fill:var(--cardf);stroke:var(--sc);stroke-width:2.5}
 .intro .d-br{fill:var(--barf)}
@@ -123,7 +134,7 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 .intro .d-big{font-size:34px;font-weight:700}
 .intro .d-mu{fill:var(--tx);opacity:.6;font-family:Sarabun,sans-serif;font-size:17px;font-weight:600}
 .intro .d-up{fill:var(--sc);font-family:Sarabun,sans-serif;font-size:17px;font-weight:700}
-.intro .d-ln{fill:none;stroke:#ffb37a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.intro .d-ln{fill:none;stroke:var(--sc);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
 .intro .d-track{fill:none;stroke:var(--barf);stroke-width:16}
 .intro .d-arc{fill:none;stroke:var(--sc);stroke-width:16;stroke-dasharray:1;stroke-dashoffset:1}
 .intro .d-bar{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0)}
@@ -132,12 +143,26 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 .intro .cta p{color:var(--mu);max-width:560px;margin:0 auto 32px;line-height:1.7}
 .intro footer{padding:40px 56px;border-top:1px solid var(--line);color:var(--mu);font-size:.88rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .intro .tq-wrap{width:100%;min-width:0}
-.intro .tq-q{font-family:'Noto Serif Thai',serif;font-weight:700;font-size:clamp(1.8rem,4.6vw,3.4rem);line-height:1.35;min-height:2.7em;width:100%;max-width:1100px;margin:0 auto 34px;display:block;text-align:center;min-width:0}
+.intro .tq-q{font-family:Sarabun,sans-serif;font-weight:700;font-size:clamp(1.8rem,4.6vw,3.4rem);line-height:1.35;min-height:2.7em;width:100%;max-width:1100px;margin:0 auto 34px;display:block;text-align:center;min-width:0}
 .intro .tq-q span{white-space:pre-wrap;word-break:normal;overflow-wrap:anywhere;text-align:center}
+.intro .qs{height:300vh;position:relative}
+.intro .qdf{height:100vh;position:sticky;top:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:96px 56px 60px;text-align:center}
+.intro .qdots{position:absolute;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:6}
+.intro .qdots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--tx);opacity:.35;transition:.25s}
+.intro .qdots i.on{background:var(--tx);opacity:1;transform:scale(1.25)}
+.intro .scue{position:absolute;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;transition:opacity .4s;z-index:6}
+.intro .scue.hide{opacity:0;pointer-events:none}
+.intro .scue svg{width:28px;height:28px;stroke:var(--tx);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:scue 1.6s ease-in-out infinite}
+.intro .scue svg:nth-child(2){animation-delay:.18s;opacity:.6;margin-top:-18px}
+.intro .scue svg:nth-child(3){animation-delay:.36s;opacity:.3;margin-top:-18px}
+@keyframes scue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.intro .scue svg{animation:none}}
 .intro .tq-cur{display:inline-block;width:3px;height:.95em;margin-left:4px;margin-top:.15em;background:var(--tx);border-radius:2px;animation:tqblink 1s steps(1) infinite}
 @keyframes tqblink{50%{opacity:0}}
-@media (prefers-reduced-motion:reduce){.intro .tq-cur{animation:none}}
-@media (max-width:860px){.intro .tq-q{font-size:clamp(1.6rem,7vw,2.3rem)}.intro .hero{padding:96px 22px 40px}.intro .stage{padding:0 34px 0 18px;grid-template-columns:1fr;grid-template-rows:auto 1fr}.intro .scene{grid-column:1;grid-row:2;max-height:none;height:auto;width:100%;aspect-ratio:1000/600;align-self:center;justify-self:stretch}.intro .cap{grid-column:1;grid-row:1;align-self:start;margin-top:14px}.intro .cap b{font-size:1.45rem;line-height:1.25;margin-bottom:8px}.intro .cap em{margin-bottom:8px}.intro .cap span{margin-bottom:12px;font-size:.85rem;line-height:1.55}.intro .dots{right:12px}.intro .cta{padding:80px 22px}.intro footer{padding:30px 22px}}
+.intro .tq-qm{display:inline-block;font-size:1.6em;line-height:0;vertical-align:-.12em;transform-origin:50% 100%;animation:tqdrop .8s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes tqdrop{0%{opacity:0;transform:translateY(-1.1em) scale(.7)}55%{opacity:1;transform:translateY(.12em) scale(1.08)}75%{transform:translateY(-.1em)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.intro .tq-cur{animation:none}.intro .tq-qm{animation:none}}
+@media (max-width:860px){.intro .qdf{padding:96px 22px 40px}.intro .scue{right:12px}.intro .tq-q{font-size:clamp(1.6rem,7vw,2.3rem)}.intro .hero{padding:96px 22px 40px}.intro .stage{padding:0 34px 0 18px;grid-template-columns:1fr;grid-template-rows:auto 1fr}.intro .scene{grid-column:1;grid-row:2;max-height:none;height:auto;width:100%;aspect-ratio:1000/600;align-self:center;justify-self:stretch}.intro .cap{grid-column:1;grid-row:1;align-self:start;margin-top:14px}.intro .cap b{font-size:1.45rem;line-height:1.25;margin-bottom:8px}.intro .cap em{margin-bottom:8px}.intro .cap span{margin-bottom:12px;font-size:.85rem;line-height:1.55}.intro .dots{right:12px}.intro .cta{padding:80px 22px}.intro footer{padding:30px 22px}}
 
 /* ===== หน้าโหลดแอป: ไอคอนขีดเด้ง ===== */
 #splash{--sbg:#e6e6ea;--stile:#ffffff;--b1:#141416;--b2:#1f9a8a;--b3:#8c8c96;position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--sbg);transition:opacity .5s ease,visibility .5s;padding-top:env(safe-area-inset-top,0px)}
@@ -154,7 +179,7 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 </head>
 <body>
 <div id="splash" aria-label="กำลังโหลด"><div class="sp-tile"><i></i><i></i><i></i></div></div>
-<header class="top glass"><button class="btn icon" id="menu" aria-label="เปิดเมนู">☰</button><span class="brand"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1e1e22"/><rect x="14" y="30" width="8" height="20" rx="3" fill="#f5f5f7"/><rect x="28" y="20" width="8" height="30" rx="3" fill="#c9b8a3"/><rect x="42" y="12" width="8" height="38" rx="3" fill="#8c8c96"/></svg></span><b>แดชบอร์ด</b><span class="muted" style="margin-left:auto">ข้อมูลตัวอย่าง ก.ย. – พ.ย. 2026</span><button class="ios" id="thm" aria-label="โหมดมืด"></button></header>
+<header class="top glass"><button class="btn icon" id="menu" aria-label="เปิดเมนู" aria-expanded="false"><span></span><span></span><span></span></button><span class="brand"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1e1e22"/><rect x="14" y="30" width="8" height="20" rx="3" fill="#f5f5f7"/><rect x="28" y="20" width="8" height="30" rx="3" fill="#c9b8a3"/><rect x="42" y="12" width="8" height="38" rx="3" fill="#8c8c96"/></svg></span><b>แดชบอร์ด</b><span class="muted" style="margin-left:auto">ข้อมูลตัวอย่าง ก.ย. – พ.ย. 2026</span><button class="ios" id="thm" aria-label="โหมดมืด"></button></header>
 <aside class="glass">
   <button class="btn on" data-v="intro">หน้าแรก</button>
   <button class="btn" data-v="home">ภาพรวมธุรกิจ</button>
@@ -164,40 +189,49 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
   <button class="btn" data-v="fin">รายรับ / รายจ่าย</button>
 </aside>
 <main id="main"></main>
-<template id="introT"><div class="intro"><section class="hero">
-  <div class="tq-wrap">
-    <div class="tq-q"><span id="tq"></span><i class="tq-cur" aria-hidden="true"></i></div>
-  </div>
+<template id="introT"><div class="intro">
+<section class="qs" id="qs"><div class="qdf">
+  <div class="tq-q"><span id="tq"></span><i class="tq-cur" aria-hidden="true"></i></div>
   <p class="lead">รวมข้อมูลจากทุกแหล่งเข้าเป็นฐานเดียว ส่งออกไปยังโปรแกรมทำแดชบอร์ด แล้วขึ้นคลาวด์เป็นเว็บไซต์ เลื่อนลงไปดูทีละขั้น</p>
   <div class="btns"><a class="pill" href="#story">เริ่มดูการทำงาน</a><a class="pill ghost" href="#" data-v="home">ดูแดชบอร์ดตัวอย่าง</a></div>
-</section>
+  <div class="scue" id="scCue" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+
+</div></section>
 
 <section class="story" id="story">
   <div class="df"><div class="stage">
-    <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+    <div class="scue" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
 
     <svg class="scene" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <defs>
         <g id="dbShape">
-          <path d="M-34 -22 V18 A34 10 0 0 0 34 18 V-22 A34 10 0 0 0 -34 -22Z" style="fill:var(--cardf);stroke:var(--sc)" stroke-width="2"/>
-          <ellipse cx="0" cy="-22" rx="34" ry="10" style="fill:var(--cardt);stroke:var(--sc)" stroke-width="2"/>
+          <path d="M-34 -22 V18 A34 10 0 0 0 34 18 V-22 A34 10 0 0 0 -34 -22Z" style="fill:var(--c,var(--sc));fill-opacity:.2;stroke:var(--c,var(--sc))" stroke-width="2.5"/>
+          <ellipse cx="0" cy="-22" rx="34" ry="10" style="fill:var(--c,var(--sc));fill-opacity:.5;stroke:var(--c,var(--sc))" stroke-width="2.5"/>
         </g>
       </defs>
 
       <g id="diagram">
-      <g class="dbi" data-x="180" data-y="160" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">ยอดขาย</text></g>
-      <g class="dbi" data-x="420" data-y="130" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">หน้าร้าน</text></g>
-      <g class="dbi" data-x="760" data-y="150" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">โซเชียล</text></g>
-      <g class="dbi" data-x="160" data-y="400" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">ออเดอร์</text></g>
-      <g class="dbi" data-x="480" data-y="420" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">รายจ่าย</text></g>
-      <g class="dbi" data-x="800" data-y="400" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">CRM</text></g>
+      <g class="dbi" data-x="180" data-y="160" style="--c:#e65c00;opacity:0"><g transform="translate(0,-4)"><rect x="-42" y="-42" width="84" height="84" rx="22" style="fill:var(--c,var(--sc))"/><g transform="translate(-14,-14) scale(1.17)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></g></g><text class="txt pop" y="66" text-anchor="middle">ยอดขาย</text></g>
+      <g class="dbi" data-x="420" data-y="130" style="--c:#007a6b;opacity:0"><g transform="translate(0,-4)"><rect x="-42" y="-42" width="84" height="84" rx="22" style="fill:var(--c,var(--sc))"/><g transform="translate(-14,-14) scale(1.17)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-5h6v5"/></g></g><text class="txt pop" y="66" text-anchor="middle">หน้าร้าน</text></g>
+      <g class="dbi" data-x="760" data-y="150" style="--c:#1d4ed8;opacity:0"><g transform="translate(0,-4)"><rect x="-42" y="-42" width="84" height="84" rx="22" style="fill:var(--c,var(--sc))"/><g transform="translate(-14,-14) scale(1.17)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></g></g><text class="txt pop" y="66" text-anchor="middle">โซเชียล</text></g>
+      <g class="dbi" data-x="160" data-y="400" style="--c:#6d28d9;opacity:0"><g transform="translate(0,-4)"><rect x="-42" y="-42" width="84" height="84" rx="22" style="fill:var(--c,var(--sc))"/><g transform="translate(-14,-14) scale(1.17)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></g></g><text class="txt pop" y="66" text-anchor="middle">ออเดอร์</text></g>
+      <g class="dbi" data-x="480" data-y="420" style="--c:#c77d00;opacity:0"><g transform="translate(0,-4)"><rect x="-42" y="-42" width="84" height="84" rx="22" style="fill:var(--c,var(--sc))"/><g transform="translate(-14,-14) scale(1.17)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v12H3z"/><path d="M3 7l13-4v4"/><circle cx="17" cy="13" r="1.6"/></g></g><text class="txt pop" y="66" text-anchor="middle">รายจ่าย</text></g>
+      <g class="dbi" data-x="800" data-y="400" style="--c:#c2185b;opacity:0"><g transform="translate(0,-4)"><rect x="-42" y="-42" width="84" height="84" rx="22" style="fill:var(--c,var(--sc))"/><g transform="translate(-14,-14) scale(1.17)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g></g><text class="txt pop" y="66" text-anchor="middle">CRM</text></g>
 
       <g id="merged" transform="translate(500,300)" style="opacity:0">
-        <use href="#dbShape" transform="scale(2.2)"/>
-        <text class="txt" y="100" text-anchor="middle" font-size="20" font-weight="700">ฐานข้อมูลเดียว</text>
+        <rect x="-130" y="-110" width="260" height="154" rx="34" style="fill:var(--cardf);stroke:var(--sc)" stroke-width="3"/><rect x="-90" y="-88" width="52" height="52" rx="14" style="--c:#e65c00;fill:var(--c)"/><g transform="translate(-80.8,-78.8) scale(1.4)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></g><rect x="-26" y="-88" width="52" height="52" rx="14" style="--c:#007a6b;fill:var(--c)"/><g transform="translate(-16.8,-78.8) scale(1.4)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-5h6v5"/></g><rect x="38" y="-88" width="52" height="52" rx="14" style="--c:#1d4ed8;fill:var(--c)"/><g transform="translate(47.2,-78.8) scale(1.4)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></g><rect x="-90" y="-28" width="52" height="52" rx="14" style="--c:#6d28d9;fill:var(--c)"/><g transform="translate(-80.8,-18.8) scale(1.4)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></g><rect x="-26" y="-28" width="52" height="52" rx="14" style="--c:#c77d00;fill:var(--c)"/><g transform="translate(-16.8,-18.8) scale(1.4)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v12H3z"/><path d="M3 7l13-4v4"/><circle cx="17" cy="13" r="1.6"/></g><rect x="38" y="-28" width="52" height="52" rx="14" style="--c:#c2185b;fill:var(--c)"/><g transform="translate(47.2,-18.8) scale(1.4)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g>
+        <text class="txt" y="72" text-anchor="middle" font-size="20" font-weight="700">ฐานข้อมูลเดียว</text>
       </g>
 
-      <path id="up" class="ln" d="M500 260 L500 152"/>
+      <path id="up" class="ln" d="M500 190 L500 152"/>
       <path id="down" class="ln" d="M500 340 L500 378"/>
       <g id="xl" style="opacity:0"><rect x="-40" y="-40" width="80" height="80" rx="16" fill="#1d6f42"/><text y="14" text-anchor="middle" font-size="44" font-weight="700" fill="#fff" font-family="Sarabun">X</text><text class="txt" y="66" text-anchor="middle">Excel</text></g>
       <g id="pbi" style="opacity:0"><rect x="-40" y="-40" width="80" height="80" rx="16" fill="#f2c811"/><rect x="-22" y="4" width="11" height="20" fill="#333"/><rect x="-6" y="-8" width="11" height="32" fill="#333"/><rect x="10" y="-22" width="11" height="46" fill="#333"/><text class="txt pbl" y="66" text-anchor="middle">Power BI</text></g>
@@ -295,7 +329,7 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 
 <script>
 const $ = s => document.querySelector(s);
-const PAL = ['#ffb37a', '#4fd1c5', '#8ab4ff', '#c9a7ff', '#ff8fb1', '#f6e05e'];
+const PAL = ['#1f9a8a', '#4fd1c5', '#7fe3d6', '#2f6f68', '#9fd9cf', '#c6ddd9'];
 let seed = 5;
 const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 const ri = (a, b) => Math.floor(a + rnd() * (b - a + 1));
@@ -434,28 +468,39 @@ const chartCard = (t, id) => `<div class="glass rv" data-cid="${id}"><div class=
 const TQ = [
   'ยังทำรายงานบน Excel อยู่หรือเปล่า?',
   'ยังต้องเปิดแดชบอร์ดจากเครื่องส่วนตัวอยู่หรือเปล่า?',
-  'ถ้าเปิดดูแดชบอร์ดบนออนไลน์ได้ ทั้งมือถือและ PC จะดีไหม?'
+  'จะดีกว่าไหม?\nถ้าเปิดดูแดชบอร์ดได้จากที่ไหนก็ได้'
 ];
 const twait = ms => new Promise(r => setTimeout(r, ms));
 const tsplit = s => (window.Intl && Intl.Segmenter)
   ? [...new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(s)].map(x => x.segment)
   : Array.from(s);
-let tqRun = 0;
-async function startTyping() {
-  const id = ++tqRun;
+let qCur = -1, qShown = 0, qSegs = [];
+function qAddChar(tq, g, last) {
+  if (g === '\n') tq.appendChild(document.createElement('br'));
+  else if (g === '?' && last) { const s = document.createElement('span'); s.className = 'tq-qm'; s.textContent = '?'; tq.appendChild(s); }
+  else tq.appendChild(document.createTextNode(g));
+}
+function updQ() {
+  const qs = document.getElementById('qs');
+  if (S.v !== 'intro' || !qs || !qs.isConnected) return;
   const tq = document.getElementById('tq');
-  if (!tq) return;
-  let parts = [];
-  const draw = () => { tq.textContent = parts.join(''); };
-  const alive = () => id === tqRun && tq.isConnected;
-  for (let i = 0; i < TQ.length; i++) {
-    for (const g of tsplit(TQ[i])) { if (!alive()) return; parts.push(g); draw(); await twait(65); }
-    if (i < TQ.length - 1) {
-      await twait(1800);
-      while (parts.length) { if (!alive()) return; parts.pop(); draw(); await twait(28); }
-      await twait(250);
-    }
-  }
+  const r = qs.getBoundingClientRect();
+  const total = qs.offsetHeight - innerHeight;
+  const p = iclamp(-r.top / total) * TQ.length;
+  const idx = Math.min(TQ.length - 1, Math.floor(p));
+  const cue = document.getElementById('scCue');
+  if (cue) cue.classList.toggle('hide', p > 0.05);
+  const f = p - idx;                       // 0..1 ภายในช่วงของคำถามข้อนี้
+  const last = idx === TQ.length - 1;
+  if (idx !== qCur) { qCur = idx; qShown = 0; qSegs = tsplit(TQ[idx]); tq.textContent = ''; }
+  const L = qSegs.length;
+  let want;
+  if (f < 0.6) want = Math.round(L * f / 0.6);
+  else if (last) want = L;                  // ข้อสุดท้ายค้างไว้ ไม่ลบ
+  else if (f < 0.85) want = L;
+  else want = Math.round(L * (1 - (f - 0.85) / 0.15));
+  while (qShown < want) { qAddChar(tq, qSegs[qShown], last); qShown++; }
+  while (qShown > want) { tq.lastChild && tq.lastChild.remove(); qShown--; }
 }
 const INTRO_STEPS = [
   ['01 / ข้อมูลกระจัดกระจาย', 'ข้อมูลอยู่คนละที่ ต้องตามเปิดทีละไฟล์', 'ยอดขายอยู่ไฟล์หนึ่ง ออเดอร์อยู่อีกแอป รายจ่ายอยู่อีกที่ กว่าจะเริ่มวิเคราะห์ได้ก็หมดเวลาไปกับการหาข้อมูลก่อนแล้ว'],
@@ -470,7 +515,8 @@ let IN = null;
 function viewIntro() {
   $('#main').innerHTML = '';
   $('#main').appendChild($('#introT').content.cloneNode(true));
-  startTyping();
+  qCur = -1;
+  updQ();
   const g = id => document.getElementById(id);
   IN = { story: g('story'), dbis: [...document.querySelectorAll('.dbi')], merged: g('merged'), xl: g('xl'), pbi: g('pbi'), gs: g('gs'),
     cloud: g('cloud'), web: g('web'), up: g('up'), down: g('down'), st: g('st'), ct: g('ct'), cx: g('cx'), bi: g('bi'),
@@ -542,6 +588,7 @@ function updIntro() {
   }
 }
 addEventListener('scroll', () => requestAnimationFrame(updIntro), { passive: true });
+addEventListener('scroll', () => requestAnimationFrame(updQ), { passive: true });
 addEventListener('resize', updIntro);
 
 function viewHome() {
@@ -775,7 +822,7 @@ function setMode(dark) {
 }
 $('#thm').onclick = () => setMode(!document.documentElement.classList.contains('dark'));
 document.addEventListener('click', e => { if (e.target.closest('button, a.pill, [data-v], [data-m], [data-f], [data-menu]')) tick(); }, true);
-$('#menu').onclick = () => document.body.classList.toggle('open');
+$('#menu').onclick = () => { const o = document.body.classList.toggle('open'); $('#menu').setAttribute('aria-expanded', o); };
 
 const SPL = document.getElementById('splash'), SPL_T0 = Date.now();
 let splDone = false;
