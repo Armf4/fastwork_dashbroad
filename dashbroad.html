@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Data_for_fastwork</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231e1e22'/%3E%3Crect x='14' y='30' width='8' height='20' rx='3' fill='%23f5f5f7'/%3E%3Crect x='28' y='20' width='8' height='30' rx='3' fill='%23c9b8a3'/%3E%3Crect x='42' y='12' width='8' height='38' rx='3' fill='%238c8c96'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--ac:#141416;--ac2:#1f9a8a;--tx:#141416;--mu:rgba(20,20,22,.6);--gl:rgba(255,255,255,.5);--bd:rgba(255,255,255,.85);--bg:radial-gradient(900px 600px at 80% 0%,rgba(255,255,255,.9),transparent 60%),#e6e6ea;--sh:0 16px 40px rgba(20,20,30,.12),inset 0 1px 0 rgba(255,255,255,.9);--th:#f1f4f8;--sel:#141416;--selt:#fff;--ct:#2a2a30;--cg:rgba(0,0,0,.08);--c1:#141416;--c2:#1f9a8a;--c3:#6b6b75;--c4:#3a3a40;--c5:#9a9aa5;--c6:#5a5a62}
+html.dark{--ac:#f5f5f7;--ac2:#7fe3d6;--tx:#f5f5f7;--mu:rgba(245,245,247,.55);--gl:rgba(255,255,255,.06);--bd:rgba(255,255,255,.1);--bg:radial-gradient(900px 600px at 80% 0%,rgba(140,140,150,.22),transparent 60%),#17171a;--sh:0 20px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);--th:#1c1c20;--sel:#f5f5f7;--selt:#141416;--ct:#cfd2da;--cg:rgba(255,255,255,.06);--c1:#f5f5f7;--c2:#7fe3d6;--c3:#8c8c96;--c4:#e6e1d6;--c5:#a9a9b3;--c6:#d9d2c5}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:'Sarabun',sans-serif;color:var(--tx);background:var(--bg);background-attachment:fixed;min-height:100vh}
+.glass{background:var(--gl);border:1px solid var(--bd);border-radius:20px;backdrop-filter:blur(20px) saturate(130%);-webkit-backdrop-filter:blur(20px) saturate(130%);box-shadow:var(--sh)}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:12px 18px;margin:12px;border-radius:16px}
+.btn{font:inherit;color:var(--tx);background:var(--gl);backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:12px;padding:8px 14px;cursor:pointer;transition:background .2s}
+.btn:hover{background:rgba(255,255,255,.14)}
+.btn.on{background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--selt);border-color:transparent;font-weight:700}
+.btn.icon{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:1.1rem}
+aside{position:fixed;top:12px;bottom:12px;left:12px;width:230px;padding:18px 12px;transform:translateX(-120%);transition:transform .35s cubic-bezier(.2,.7,.2,1);z-index:30;overflow:auto}
+body.open aside{transform:none}
+aside .btn{display:block;width:100%;text-align:left;margin-bottom:8px;border:0;background:transparent}
+aside .btn.on{background:var(--sel);color:var(--selt);box-shadow:none}
+main{padding:92px 18px 30px;transition:margin .35s}
+@media(min-width:900px){body.open main{margin-left:254px}body.open aside{transform:none}}
+h1{margin:4px 0 6px;font-size:1.7rem}
+h3{margin:0;font-size:1rem;font-weight:600}
+.muted{color:var(--mu);font-size:.9rem}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.grid{display:grid;gap:20px}
+.kpi{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin:18px 0}
+.kpi .glass{padding:18px}
+.kpi b{display:block;font-size:1.6rem;margin-top:6px;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.charts{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.charts .glass{cursor:pointer}
+.charts .cb{height:170px;transition:height .5s cubic-bezier(.2,.7,.2,1)}
+.charts .glass.open{grid-column:1/-1}
+.charts .glass.open .cb{height:440px}
+.charts .glass{padding:22px}
+.cb{position:relative;height:340px;margin-top:12px}
+.tbl{overflow:auto;max-height:360px;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.07)}
+th:first-child,td:first-child{text-align:left}
+th{position:sticky;top:0;background:var(--th);color:var(--mu);font-weight:600}
+tr.t td{font-weight:700;color:var(--ac)}
+.rv{animation:clipin .6s cubic-bezier(.22,1,.36,1) both}
+@keyframes clipin{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.rv.in{clip-path:inset(0 0 0 0)}
+.mvs{display:none;gap:4px;align-items:center}
+body.edit .mvs{display:inline-flex}
+body.edit .glass[data-cid]{outline:1px dashed rgba(255,179,122,.45);outline-offset:4px}
+.chead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mvb{padding:4px 10px;font-size:.8rem}
+.brand{width:30px;height:30px;border-radius:9px;overflow:hidden;display:block;flex:none}
+.brand svg{width:30px;height:30px;display:block}
+#menu{background:var(--sel);color:var(--selt);border-color:transparent;box-shadow:var(--sh)}
+.ios{width:44px;height:44px;border:0;border-radius:12px;display:grid;place-items:center;cursor:pointer;background:linear-gradient(145deg,#4a4a52,#1e1e22);box-shadow:0 6px 18px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.2)}
+.ios:active{transform:scale(.96)}
+#ebar{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:8px;padding:8px 12px;border-radius:999px}
+@media (prefers-reduced-motion:reduce){.rv{animation:none}}
+/* ===== หน้าแรก: scrollytelling ===== */
+body.isIntro main{padding:0}
+:root{--cardf:#ffffff;--cardt:#d4f0eb;--barf:#e8e2d6;--line:rgba(20,20,22,.12)}
+.intro{--hal:#e6e6ea;--sc:#168a7a;--glow:rgba(22,138,122,.28)}
+html.dark{--cardf:#1f3336;--cardt:#2f5558;--barf:#2b2b30;--line:rgba(255,255,255,.1)}
+html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
+.intro *{box-sizing:border-box}
+.intro a{color:inherit}
+.intro .pill{display:inline-block;background:var(--sel);color:var(--selt);padding:11px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem}
+.intro .pill.ghost{background:transparent;color:var(--tx);border:1px solid var(--tx)}
+.intro .hero{min-height:80vh;display:flex;flex-direction:column;justify-content:center;padding:120px 56px 40px;max-width:1280px;margin:0 auto}
+.intro h1{font-family:'Noto Serif Thai',serif;font-weight:700;font-size:clamp(2.6rem,6vw,5rem);line-height:1.1;margin:0 0 22px}
+.intro h2{font-family:'Noto Serif Thai',serif;font-size:clamp(2rem,4.4vw,3.6rem);margin:0 0 18px}
+.intro .lead{font-size:1.05rem;color:var(--mu);max-width:500px;line-height:1.7;margin:0 0 30px}
+.intro .btns{display:flex;gap:12px;flex-wrap:wrap}
+.intro .story{height:400vh;position:relative}
+.intro .df{height:100vh;position:sticky;top:0;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:76px 0 0}
+.intro .stage{width:min(1400px,100%);height:100%;position:relative;display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.45fr);grid-template-rows:minmax(0,1fr);align-items:center;padding:0 72px 0 56px}
+.intro .scene{grid-column:2;grid-row:1;position:relative;width:100%;height:100%;max-height:78vh;align-self:center;justify-self:end}
+.intro .ln{fill:none;stroke:var(--sc);stroke-width:3;stroke-linecap:round;stroke-dasharray:120;stroke-dashoffset:120}
+.intro .s-card{fill:var(--cardf);stroke:var(--sc)}
+.intro .s-top{fill:var(--cardt);stroke:var(--ac2)}
+.intro .s-bar{fill:var(--barf)}
+.intro .s-acc{fill:var(--ac2)}
+.intro .txt{font-family:Sarabun,sans-serif;fill:var(--tx);font-size:25px;font-weight:700;paint-order:stroke;stroke:var(--hal);stroke-width:7px;stroke-linejoin:round}
+.intro #merged .txt{font-size:30px}
+.intro .dbi,.intro #merged{filter:drop-shadow(0 6px 14px var(--glow))}
+.intro .pop{transform-box:fill-box;transform-origin:50% 100%;opacity:0}
+.intro .pop.in{animation:pop .7s cubic-bezier(.3,1.4,.5,1) forwards}
+@keyframes pop{0%{opacity:0;transform:translateY(16px) scale(.3)}55%{opacity:1;transform:translateY(-6px) scale(1.25)}78%{transform:translateY(1px) scale(.94)}100%{opacity:1;transform:none}}
+.intro .cap>.in{animation:capin .65s cubic-bezier(.3,1.35,.5,1) both}
+@keyframes capin{0%{opacity:0;transform:translateY(28px) scale(.9)}60%{opacity:1;transform:translateY(-5px) scale(1.03)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.intro .pop{opacity:1}.intro .pop.in,.intro .cap>.in{animation:none}}
+.intro .cap{grid-column:1;grid-row:1;align-self:center;justify-self:start;z-index:4;max-width:400px}
+.intro .cap em{display:block;font-style:normal;font-size:.8rem;letter-spacing:.14em;color:var(--sc);font-weight:700;margin-bottom:18px}
+.intro .cap b{display:block;font-family:'Noto Serif Thai',serif;font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.2;margin-bottom:18px}
+.intro .cap span{display:block;font-size:1rem;line-height:1.7;color:var(--mu);margin-bottom:28px}
+.intro .dots{position:absolute;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:6}
+.intro .dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--tx);opacity:.35;transition:.25s}
+.intro .dots i.on{background:var(--tx);opacity:1;transform:scale(1.25)}
+.intro .bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:5}
+.intro .bar i{display:block;height:100%;width:0;background:var(--tx)}
+.intro .cta{padding:120px 56px;text-align:center}
+.intro .cta p{color:var(--mu);max-width:560px;margin:0 auto 32px;line-height:1.7}
+.intro footer{padding:40px 56px;border-top:1px solid var(--line);color:var(--mu);font-size:.88rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media (max-width:860px){.intro .hero{padding:96px 22px 40px}.intro .stage{padding:0 34px 0 18px;grid-template-columns:1fr;grid-template-rows:auto 1fr}.intro .scene{grid-column:1;grid-row:2;max-height:none}.intro .cap{grid-column:1;grid-row:1;align-self:start;margin-top:14px}.intro .cap b{font-size:1.7rem;margin-bottom:8px}.intro .cap span{margin-bottom:0;font-size:.9rem}.intro .dots{right:12px}.intro .cta{padding:80px 22px}.intro footer{padding:30px 22px}}
+</style>
+</head>
+<body>
+<header class="top glass"><button class="btn icon" id="menu" aria-label="เปิดเมนู">☰</button><span class="brand"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1e1e22"/><rect x="14" y="30" width="8" height="20" rx="3" fill="#f5f5f7"/><rect x="28" y="20" width="8" height="30" rx="3" fill="#c9b8a3"/><rect x="42" y="12" width="8" height="38" rx="3" fill="#8c8c96"/></svg></span><b>แดชบอร์ด</b><span class="muted" style="margin-left:auto">ข้อมูลตัวอย่าง ก.ย. – พ.ย. 2026</span><button class="ios" id="thm" aria-label="โหมดมืด"></button></header>
+<aside class="glass">
+  <button class="btn on" data-v="intro">หน้าแรก</button>
+  <button class="btn" data-v="home">ภาพรวมธุรกิจ</button>
+  <button class="btn" data-v="food">ธุรกิจอาหาร</button>
+  <button class="btn" data-v="online">ขายของออนไลน์</button>
+  <button class="btn" data-v="social">วัดผลโซเชียล</button>
+  <button class="btn" data-v="fin">รายรับ / รายจ่าย</button>
+</aside>
+<main id="main"></main>
+<template id="introT"><div class="intro"><section class="hero">
+  <h1>จากฐานข้อมูลหลายแหล่ง<br>สู่เว็บไซต์เดียว</h1>
+  <p class="lead">รวมข้อมูลจากทุกแหล่งเข้าเป็นฐานเดียว ส่งออกไปยังโปรแกรมทำแดชบอร์ด แล้วขึ้นคลาวด์เป็นเว็บไซต์ เลื่อนลงไปดูทีละขั้น</p>
+  <div class="btns"><a class="pill" href="#story">เริ่มดูการทำงาน</a><a class="pill ghost" href="#" data-v="home">ดูแดชบอร์ดตัวอย่าง</a></div>
+</section>
+
+<section class="story" id="story">
+  <div class="df"><div class="stage">
+    <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div>
+
+    <svg class="scene" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <g id="dbShape">
+          <path d="M-34 -22 V18 A34 10 0 0 0 34 18 V-22 A34 10 0 0 0 -34 -22Z" style="fill:var(--cardf);stroke:var(--sc)" stroke-width="2"/>
+          <ellipse cx="0" cy="-22" rx="34" ry="10" style="fill:var(--cardt);stroke:var(--sc)" stroke-width="2"/>
+        </g>
+      </defs>
+
+      <g class="dbi" data-x="180" data-y="160" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">ยอดขาย</text></g>
+      <g class="dbi" data-x="420" data-y="130" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">หน้าร้าน</text></g>
+      <g class="dbi" data-x="760" data-y="150" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">โซเชียล</text></g>
+      <g class="dbi" data-x="160" data-y="400" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">ออเดอร์</text></g>
+      <g class="dbi" data-x="480" data-y="420" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">รายจ่าย</text></g>
+      <g class="dbi" data-x="800" data-y="400" style="opacity:0"><use href="#dbShape"/><text class="txt pop" y="60" text-anchor="middle">CRM</text></g>
+
+      <g id="merged" transform="translate(500,300)" style="opacity:0">
+        <use href="#dbShape" transform="scale(2.2)"/>
+        <text class="txt" y="100" text-anchor="middle" font-size="20" font-weight="700">ฐานข้อมูลเดียว</text>
+      </g>
+
+      <path id="up" class="ln" d="M500 260 L500 152"/>
+      <path id="down" class="ln" d="M500 340 L500 378"/>
+      <g id="xl" style="opacity:0"><rect x="-40" y="-40" width="80" height="80" rx="16" fill="#1d6f42"/><text y="14" text-anchor="middle" font-size="44" font-weight="700" fill="#fff" font-family="Sarabun">X</text><text class="txt" y="66" text-anchor="middle">Excel</text></g>
+      <g id="pbi" style="opacity:0"><rect x="-40" y="-40" width="80" height="80" rx="16" fill="#f2c811"/><rect x="-22" y="4" width="11" height="20" fill="#333"/><rect x="-6" y="-8" width="11" height="32" fill="#333"/><rect x="10" y="-22" width="11" height="46" fill="#333"/><text class="txt pbl" y="66" text-anchor="middle">Power BI</text></g>
+      <g id="gs" style="opacity:0"><rect x="-40" y="-40" width="80" height="80" rx="16" fill="#0f9d58"/><rect x="-24" y="-22" width="48" height="44" fill="none" stroke="#fff" stroke-width="3"/><line x1="-24" y1="-6" x2="24" y2="-6" stroke="#fff" stroke-width="2"/><line x1="0" y1="-22" x2="0" y2="22" stroke="#fff" stroke-width="2"/><text class="txt" y="66" text-anchor="middle">Sheets</text></g>
+
+      <g id="cloud" transform="translate(500,140)" style="opacity:0">
+        <path d="M-70 10 a26 26 0 0 1 12 -48 a40 40 0 0 1 74 8 a26 26 0 0 1 18 40 z" class="s-card" stroke-width="2.5"/>
+        <text class="txt" x="66" y="14">Cloud</text>
+      </g>
+      <g id="web" transform="translate(500,440)" style="opacity:0">
+        <rect x="-95" y="-62" width="190" height="124" rx="10" class="s-card" stroke-width="2"/>
+        <rect x="-95" y="-62" width="190" height="20" rx="10" class="s-bar"/>
+        <rect x="-75" y="-28" width="44" height="62" rx="6" class="s-acc" opacity=".55"/>
+        <rect x="-18" y="-8" width="76" height="42" rx="6" fill="#ffb37a" opacity=".7"/>
+        <text class="txt" y="90" text-anchor="middle">เว็บไซต์</text>
+      </g>
+    </svg>
+
+    <div class="cap"><em id="st">01 / ข้อมูลกระจัดกระจาย</em><b id="ct">ข้อมูลอยู่คนละที่ ต้องตามเปิดทีละไฟล์</b><span id="cx">ยอดขายอยู่ไฟล์หนึ่ง ออเดอร์อยู่อีกแอป รายจ่ายอยู่อีกที่ กว่าจะเริ่มวิเคราะห์ได้ก็หมดเวลาไปกับการหาข้อมูลก่อนแล้ว</span><a class="pill" href="#cta">คุยกับเรา</a></div>
+    <div class="bar"><i id="bi"></i></div>
+  </div></div>
+</section>
+
+<section class="cta" id="cta">
+  <h2>อยากให้ข้อมูลของคุณ<br>ขึ้นเป็นเว็บไซต์แบบนี้ไหม</h2>
+  <p>บอกแหล่งข้อมูลที่มีอยู่ตอนนี้ เราจะบอกขั้นตอนและขอบเขตงานให้ก่อนเริ่มทำ</p>
+  <div class="btns" style="justify-content:center"><a class="pill" href="https://fastwork.co/user/punyawat.arm" target="_blank" rel="noopener">ติดต่อสั่งทำ</a><a class="pill ghost" href="#" data-v="home">ดูภาพรวมธุรกิจ</a></div>
+</section>
+
+<footer><span>armr · รับทำแดชบอร์ดวิเคราะห์ข้อมูล</span><span>ข้อมูลในตัวอย่างเป็นข้อมูลสมมติ</span></footer></div></template>
+
+
+<script>
+const $ = s => document.querySelector(s);
+const PAL = ['#ffb37a', '#4fd1c5', '#8ab4ff', '#c9a7ff', '#ff8fb1', '#f6e05e'];
+let seed = 5;
+const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const ri = (a, b) => Math.floor(a + rnd() * (b - a + 1));
+const MONS = ['ทั้งหมด', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน'];
+const DAYS = [];
+for (let d = 0; d < 91; d++) {
+  const dt = new Date(2026, 8, 1 + d);
+  DAYS.push({ iso: dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0'), m: dt.getMonth() - 8, d: dt.getDate() });
+}
+const fk = n => n >= 1e6 ? (n / 1e6).toFixed(2) + 'ล้าน' : n >= 1e3 ? (n / 1e3).toFixed(2) + 'พัน' : Math.round(n).toLocaleString('th-TH');
+const fv = (v, f) => f === 2 ? (v * 100).toFixed(1) + '%' : (f === 1 ? '฿' : '') + fk(v);
+
+const BIZ = {
+  food: { t: 'ธุรกิจอาหาร', ch: ['หน้าร้าน', 'GrabFood', 'LINE MAN'], items: ['ข้าวมันไก่', 'ก๋วยเตี๋ยวเรือ', 'ผัดกะเพรา', 'ชาไทย', 'ข้าวหมูทอด'],
+    cols: [['rev', 'รายได้', 1], ['cost', 'ต้นทุน', 1], ['o', 'ออเดอร์', 0]], main: 'rev',
+    gen: () => { const o = ri(20, 60), rev = o * ri(60, 160); return { rev, cost: Math.round(rev * (.4 + rnd() * .2)), o }; },
+    kpi: t => [['รายได้', t.rev, 1], ['กำไรขั้นต้น', t.rev - t.cost, 1], ['ออเดอร์', t.o, 0], ['เฉลี่ยต่อออเดอร์', t.o ? t.rev / t.o : 0, 1]] },
+  online: { t: 'ขายของออนไลน์', ch: ['Shopee', 'Lazada', 'TikTok Shop', 'เว็บไซต์'], items: ['เสื้อยืด', 'กระเป๋าผ้า', 'แก้วเซรามิก', 'หมวกแก๊ป', 'สบู่สมุนไพร'],
+    cols: [['rev', 'รายได้', 1], ['cost', 'ต้นทุน', 1], ['o', 'ออเดอร์', 0], ['ret', 'คืนสินค้า', 0]], main: 'rev',
+    gen: () => { const o = ri(10, 60), rev = o * ri(150, 700); return { rev, cost: Math.round(rev * (.45 + rnd() * .15)), o, ret: ri(0, Math.round(o * .15)) }; },
+    kpi: t => [['รายได้', t.rev, 1], ['กำไรขั้นต้น', t.rev - t.cost, 1], ['ออเดอร์', t.o, 0], ['อัตราคืนสินค้า', t.o ? t.ret / t.o : 0, 2]] },
+  social: { t: 'วัดผลโซเชียลมีเดีย', ch: ['โพสต์ปกติ', 'รีล', 'โฆษณา'], items: ['Facebook', 'Instagram', 'TikTok', 'YouTube', 'LINE OA'],
+    cols: [['reach', 'การเข้าถึง', 0], ['eng', 'การมีส่วนร่วม', 0], ['clk', 'คลิก', 0]], main: 'reach',
+    gen: () => { const reach = ri(2000, 20000), eng = Math.round(reach * (.02 + rnd() * .07)); return { reach, eng, clk: Math.round(eng * (.1 + rnd() * .2)) }; },
+    kpi: t => [['การเข้าถึง', t.reach, 0], ['การมีส่วนร่วม', t.eng, 0], ['คลิก', t.clk, 0], ['อัตราการมีส่วนร่วม', t.reach ? t.eng / t.reach : 0, 2]] }
+};
+for (const k in BIZ) {
+  const B = BIZ[k];
+  B.rows = [];
+  DAYS.forEach(D => B.items.forEach(it => B.rows.push({ iso: D.iso, m: D.m, it, ch: B.ch[ri(0, B.ch.length - 1)], ...B.gen() })));
+}
+
+const FCH = ['หน้าร้าน', 'Line OA', 'Grab', 'LINE MAN', 'Robinhood'];
+const FCAT = ['fixcost', 'วัตถุดิบ', 'อุปกรณ์', 'parttime', 'ค่าส่ง', 'vat'];
+const FST = ['ร้านค้า A', 'ร้านค้า B', 'ร้านค้า C', 'ร้านค้า D', 'ร้านค้า E', 'ร้านค้า F'];
+const FI = [], FE = [];
+DAYS.forEach(D => {
+  const ch = {};
+  FCH.forEach((c, i) => ch[c] = i === 4 ? ri(0, 300) : ri(300, 2500));
+  FI.push({ iso: D.iso, m: D.m, ch, tot: Object.values(ch).reduce((a, b) => a + b, 0) });
+  for (let j = ri(3, 6); j > 0; j--) FE.push({ iso: D.iso, m: D.m, cat: FCAT[ri(0, 5)], st: FST[ri(0, 5)], amt: ri(200, 6000) });
+});
+
+const S = { v: 'intro', m: -1, fm: 'both', menu: null };
+const inM = r => S.m < 0 || r.m === S.m;
+const DD = () => DAYS.filter(D => S.m < 0 || D.m === S.m);
+const sumOf = (arr, f) => arr.reduce((a, r) => a + f(r), 0);
+
+let charts = [];
+const mk = (id, cfg) => { cfg.options = cfg.options || {}; cfg.options.plugins = { ...(cfg.options.plugins || {}), rv: S.v + '|' + id }; charts.push(new Chart(document.getElementById(id), cfg)); };
+const kill = () => { charts.forEach(c => c.destroy()); charts = []; };
+const axes = { x: { ticks: { color: '#9aa4b5', maxTicksLimit: 7, font: { size: 11 } }, grid: { color: 'rgba(255,255,255,.05)' } }, y: { ticks: { color: '#9aa4b5' }, grid: { color: 'rgba(255,255,255,.05)' } } };
+const TT = { backgroundColor: 'rgba(16,18,26,.92)', borderColor: 'rgba(255,255,255,.18)', borderWidth: 1, padding: 12, cornerRadius: 12, titleColor: '#fff', bodyColor: '#f5f5f7', displayColors: true, boxPadding: 4, titleFont: { family: 'Sarabun', weight: '700', size: 14 }, bodyFont: { family: 'Sarabun', size: 13 }, callbacks: { label: c => { const dn = c.chart.config.type === 'doughnut'; const v = dn ? c.parsed : (c.parsed.y !== undefined ? c.parsed.y : c.parsed); const n = Math.round(v).toLocaleString('th-TH'); if (dn) { const t = c.dataset.data.reduce((a, b) => a + b, 0); return ` ${c.label}: ${n} (${(v / t * 100).toFixed(1)}%)`; } return ` ${c.dataset.label && c.dataset.label !== c.label ? c.dataset.label + ': ' : ''}${n}`; } } };
+const opt = (legend, extra = {}) => ({ maintainAspectRatio: false, animation: { duration: 1100, easing: 'easeOutQuart' }, interaction: { mode: 'nearest', intersect: true }, plugins: { legend: { display: legend, position: 'bottom', labels: { color: '#cfd6e2' } }, tooltip: TT }, ...extra });
+const lineCfg = (labels, datasets) => {
+  const v = datasets[0].data;
+  const avg = v.map((_, i) => { const s = v.slice(Math.max(0, i - 6), i + 1); return s.reduce((a, b) => a + b, 0) / s.length; });
+  const main = { ...datasets[0], borderColor: '#4fd1c5', borderWidth: 2.5, tension: .35, pointRadius: 0, pointHoverRadius: 6, pointHoverBackgroundColor: '#fff', pointHoverBorderColor: '#4fd1c5', fill: false,
+    backgroundColor: ctx => { const a = ctx.chart.chartArea; if (!a) return 'transparent'; const g = ctx.chart.ctx.createLinearGradient(0, a.top, 0, a.bottom); g.addColorStop(0, 'rgba(' + (window.C1RGB || '255,179,122') + ',.45)'); g.addColorStop(1, 'rgba(' + (window.C1RGB || '255,179,122') + ',0)'); return g; } };
+  const avgSet = { label: 'ค่าเฉลี่ย 7 วัน', data: avg, borderColor: '#4fd1c5', borderWidth: 1.5, borderDash: [6, 5], tension: .35, pointRadius: 0, fill: false };
+  return { type: 'line', data: { labels, datasets: [main, avgSet] }, options: { ...opt(true, { scales: axes, interaction: { mode: 'index', intersect: false } }), plugins: { legend: { display: true, position: 'bottom', labels: { color: '#cfd6e2' } }, tooltip: TT, run: false, fx: true } } };
+};
+let revealT0 = null, revealDone = false;
+const RV = new Set();
+Chart.register({ id: 'rvl',
+  beforeDatasetsDraw(c) {
+    const key = c.config.options.plugins && c.config.options.plugins.rv;
+    if (true) return;
+    if (!c.$t0) c.$t0 = performance.now();
+    const p = Math.min(1, (performance.now() - c.$t0) / 1400), e = 1 - Math.pow(1 - p, 3);
+    if (p >= 1) RV.add(key); else requestAnimationFrame(() => c.draw());
+    const a = c.chartArea || { left: 0, right: c.width, top: 0, bottom: c.height };
+    c.ctx.save(); c.ctx.beginPath(); c.ctx.rect(a.left - 6, a.top - 40, (a.right - a.left + 12) * e, a.bottom - a.top + 80); c.ctx.clip(); c.$clip = true;
+  },
+  afterDatasetsDraw(c) { if (c.$clip) { c.ctx.restore(); c.$clip = false; } }
+});
+Chart.register({ id: 'rv2',
+  beforeDatasetsDraw(c) {
+    const key = c.config.options.plugins && c.config.options.plugins.rv;
+    if (!key) return;
+    const link = c.config.type === 'line' || c.config.type === 'doughnut';
+    if (!link && RV.has(key)) return;
+    if (!c.$t0) c.$t0 = performance.now();
+    const e0 = Math.min(1, (performance.now() - c.$t0) / (c.config.type === 'line' ? 2800 : 1400));
+    let p = e0;
+    if (link) { const r = c.canvas.getBoundingClientRect(); p = Math.min(e0, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.75))); }
+    else if (e0 >= 1) RV.add(key);
+    if (e0 < 1) requestAnimationFrame(() => c.draw());
+    const a = c.chartArea || { left: 0, right: c.width, top: 0, bottom: c.height };
+    const w = (a.right - a.left + 12) * (1 - Math.pow(1 - p, 3));
+    c.ctx.save(); c.ctx.beginPath(); c.ctx.rect(a.left - 6, a.top - 40, w, a.bottom - a.top + 80); c.ctx.clip(); c.$clip = true;
+  },
+  afterDatasetsDraw(c) { if (c.$clip) { c.ctx.restore(); c.$clip = false; } }
+});
+window.addEventListener('scroll', () => charts.forEach(c => { if (c.config.type === 'line' || c.config.type === 'doughnut') c.draw(); }), { passive: true });
+Chart.register({ id: 'fx',
+  beforeDatasetsDraw(c) {
+    if (true) return;
+    if (revealT0 === null) revealT0 = performance.now();
+    const p = Math.min(1, (performance.now() - revealT0) / 1600), e = 1 - Math.pow(1 - p, 3);
+    if (p >= 1) revealDone = true; else requestAnimationFrame(() => c.draw());
+    const a = c.chartArea;
+    c.ctx.save(); c.ctx.beginPath(); c.ctx.rect(a.left, a.top - 30, (a.right - a.left) * e, a.bottom - a.top + 60); c.ctx.clip(); c._clip = true;
+  },
+  beforeDatasetDraw(c, a) { if (a.index === 0 && c.config.options.plugins && c.config.options.plugins.fx === true) { c.ctx.shadowBlur = 0; } },
+  afterDatasetDraw(c, a) { if (a.index === 0) c.ctx.shadowBlur = 0; },
+  afterDatasetsDraw(c) {
+    if (c._clip) { c.ctx.restore(); c._clip = false; }
+    if (!(c.config.options.plugins && c.config.options.plugins.fx === true) || !c.canvas.closest('.glass.open')) return;
+    const ctx = c.ctx, m = c.getDatasetMeta(0).data, vals = c.data.datasets[0].data;
+    if (!m.length) return;
+    let hi = 0, lo = 0;
+    vals.forEach((x, i) => { if (x > vals[hi]) hi = i; if (x < vals[lo]) lo = i; });
+    [[hi, '#ffffff', 'สูงสุด'], [lo, '#c9b8a3', 'ต่ำสุด']].forEach(([i, col, name]) => {
+      const p = m[i]; if (!p) return;
+      ctx.save(); ctx.beginPath(); ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
+      ctx.font = '600 12px Sarabun, sans-serif'; ctx.fillStyle = col; ctx.textAlign = 'center';
+      const up = p.y - c.chartArea.top > 26, tx = Math.min(Math.max(p.x, c.chartArea.left + 50), c.chartArea.right - 50);
+      ctx.textAlign = 'center'; ctx.fillText(name + ' ' + Math.round(vals[i]).toLocaleString('th-TH'), tx, up ? p.y - 12 : p.y + 22);
+      ctx.restore();
+    });
+    const act = c.getActiveElements();
+    if (act.length) {
+      const x = act[0].element.x;
+      ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.beginPath(); ctx.moveTo(x, c.chartArea.top); ctx.lineTo(x, c.chartArea.bottom); ctx.stroke(); ctx.restore();
+    }
+  }
+});
+const barCfg = (labels, data, c) => ({ type: 'bar', data: { labels, datasets: [{ data, backgroundColor: c, borderRadius: 6 }] }, options: opt(false, { scales: axes }) });
+const pieCfg = (labels, data) => ({ type: 'doughnut', data: { labels, datasets: [{ data, backgroundColor: PAL, borderWidth: 0 }] }, options: opt(true, { cutout: '62%' }) });
+const card = (l, v) => `<div class="glass rv"><span class="muted">${l}</span><b>${v}</b></div>`;
+const head = (t) => `<h1>${t}</h1><div class="row" style="margin-bottom:10px">${MONS.map((n, i) => `<button class="btn ${S.m === i - 1 ? 'on' : ''}" data-m="${i - 1}">${n}</button>`).join('')}</div>`;
+const chartCard = (t, id) => `<div class="glass rv" data-cid="${id}"><div class="chead"><h3>${t}</h3><button class="btn mvb" data-x>ขยาย</button></div><div class="cb"><canvas id="${id}"></canvas></div></div>`;
+
+/* ===== หน้าแรก: scrollytelling ===== */
+const INTRO_STEPS = [
+  ['01 / ข้อมูลกระจัดกระจาย', 'ข้อมูลอยู่คนละที่ ต้องตามเปิดทีละไฟล์', 'ยอดขายอยู่ไฟล์หนึ่ง ออเดอร์อยู่อีกแอป รายจ่ายอยู่อีกที่ กว่าจะเริ่มวิเคราะห์ได้ก็หมดเวลาไปกับการหาข้อมูลก่อนแล้ว'],
+  ['02 / ตัวเลขไม่ตรงกัน', 'ก๊อปมาแปะ แล้วยอดรวมไม่ตรงกัน', 'คัดลอกข้อมูลข้ามไฟล์ด้วยมือ พลาดแค่แถวเดียวตัวเลขก็เพี้ยน เรารวมทุกแหล่งเป็นฐานเดียว ให้ทั้งทีมใช้ตัวเลขชุดเดียวกัน'],
+  ['03 / งานซ้ำทุกเดือน', 'ทำรายงานใหม่ทุกรอบ ทั้งที่ควรอัปเดตเอง', 'เชื่อมเข้า Excel, Power BI หรือ Google Sheets แล้วแดชบอร์ดอัปเดตตามข้อมูล ไม่ต้องเริ่มทำรายงานจากศูนย์อีก'],
+  ['04 / เปิดดูได้ทันที', 'ถูกถามตัวเลข เปิดดูได้ทันทีจากมือถือ', 'ขึ้นคลาวด์เป็นเว็บไซต์ เปิดได้ทุกที่ ไม่ต้องรอส่งไฟล์ อยากได้แบบนี้กับข้อมูลของคุณ สั่งทำผ่าน Fastwork ได้เลย']
+];
+const iclamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const iease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+let IN = null;
+function viewIntro() {
+  $('#main').innerHTML = '';
+  $('#main').appendChild($('#introT').content.cloneNode(true));
+  const g = id => document.getElementById(id);
+  IN = { story: g('story'), dbis: [...document.querySelectorAll('.dbi')], merged: g('merged'), xl: g('xl'), pbi: g('pbi'), gs: g('gs'),
+    cloud: g('cloud'), web: g('web'), up: g('up'), down: g('down'), st: g('st'), ct: g('ct'), cx: g('cx'), bi: g('bi'),
+    dots: [...document.querySelectorAll('#dots i')] };
+  updIntro();
+}
+function updIntro() {
+  if (S.v !== 'intro' || !IN || !IN.story.isConnected) return;
+  const { story, dbis, merged, xl, pbi, gs, cloud, web, up, down, st, ct, cx, bi, dots } = IN;
+  const CX = 500, CY = 300;
+  const apps = [[xl, 330, 300, 0], [pbi, 500, 300, 1], [gs, 670, 300, 2]];
+  const r = story.getBoundingClientRect();
+  const total = story.offsetHeight - innerHeight;
+  const p = iclamp(-r.top / total);
+  bi.style.width = (p * 100) + '%';
+  dbis.forEach((g, i) => {
+    const bx = +g.dataset.x, by = +g.dataset.y;
+    const appear = iease(iclamp((p - i * 0.015) / 0.1));
+    const t = iease(iclamp((p - 0.25 - i * 0.012) / 0.22));
+    const x = bx + (CX - bx) * t, y = by + (CY - by) * t;
+    const s = (0.7 + 0.3 * appear) * (1 - 0.6 * t);
+    g.setAttribute('transform', `translate(${x},${y}) scale(${s})`);
+    g.style.opacity = appear * (1 - iease(iclamp((p - 0.42) / 0.06)));
+    const lb = g.querySelector('.pop');
+    if (appear > 0.45) lb.classList.add('in'); else if (appear < 0.05) lb.classList.remove('in');
+  });
+  merged.style.opacity = iease(iclamp((p - 0.4) / 0.08)) * (1 - iease(iclamp((p - 0.5) / 0.06)));
+  apps.forEach(([el, fx, fy, k]) => {
+    const t = iease(iclamp((p - 0.55 - k * 0.03) / 0.14));
+    const x = CX + (fx - CX) * t, y = CY + (fy - CY) * t;
+    el.setAttribute('transform', `translate(${x},${y}) scale(${0.4 + 0.6 * t})`);
+    let o = t;
+    if (k !== 1) o *= 1 - iease(iclamp((p - 0.76) / 0.06));
+    el.style.opacity = o;
+  });
+  up.style.strokeDashoffset = 120 * (1 - iease(iclamp((p - 0.8) / 0.06)));
+  const pl = iease(iclamp((p - 0.76) / 0.05));
+  pbi.querySelector('.pbl').setAttribute('transform', `translate(${96 * pl},${-58 * pl})`);
+  cloud.style.opacity = iease(iclamp((p - 0.84) / 0.06));
+  down.style.strokeDasharray = '120';
+  down.style.strokeDashoffset = 120 * (1 - iease(iclamp((p - 0.9) / 0.04)));
+  web.style.opacity = iease(iclamp((p - 0.92) / 0.06));
+  const idx = p < 0.25 ? 0 : p < 0.5 ? 1 : p < 0.75 ? 2 : 3;
+  st.textContent = INTRO_STEPS[idx][0];
+  ct.textContent = INTRO_STEPS[idx][1];
+  cx.textContent = INTRO_STEPS[idx][2];
+  dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+  if (idx !== IN.last) {
+    IN.last = idx;
+    document.querySelectorAll('.cap > *').forEach((el, k) => {
+      el.classList.remove('in'); void el.offsetWidth;
+      el.style.animationDelay = (k * 0.08) + 's'; el.classList.add('in');
+    });
+  }
+}
+addEventListener('scroll', () => requestAnimationFrame(updIntro), { passive: true });
+addEventListener('resize', updIntro);
+
+function viewHome() {
+  const f = BIZ.food.rows.filter(inM), o = BIZ.online.rows.filter(inM), so = BIZ.social.rows.filter(inM);
+  const fr = sumOf(f, r => r.rev), or = sumOf(o, r => r.rev);
+  const prof = sumOf(f, r => r.rev - r.cost) + sumOf(o, r => r.rev - r.cost);
+  const exp = sumOf(FE.filter(inM), r => r.amt);
+  const daily = DD().map(D => sumOf(f.filter(r => r.iso === D.iso), r => r.rev) + sumOf(o.filter(r => r.iso === D.iso), r => r.rev));
+  $('#main').innerHTML = head('ภาพรวมธุรกิจ') +
+    `<div class="grid kpi">${card('รายได้อาหาร', fv(fr, 1))}${card('รายได้ออนไลน์', fv(or, 1))}${card('กำไรรวม', fv(prof, 1))}${card('การเข้าถึงโซเชียล', fv(sumOf(so, r => r.reach), 0))}${card('ค่าใช้จ่ายรวม', fv(exp, 1))}</div>` +
+    `<div class="grid charts">${chartCard('สัดส่วนรายได้รวม อาหาร / ออนไลน์', 'c1')}${chartCard('รายได้รวมรายวัน', 'c2')}</div>`;
+  mk('c1', pieCfg(['อาหาร', 'ออนไลน์'], [fr, or]));
+  mk('c2', lineCfg(DD().map(D => D.iso.slice(5)), [{ label: 'รายได้รวม', data: daily, borderColor: '#ffb37a', backgroundColor: 'rgba(255,179,122,.15)', fill: true, tension: .35, pointRadius: 0 }]));
+}
+
+function viewBiz(k) {
+  const B = BIZ[k], R = B.rows.filter(inM), t = {};
+  B.cols.forEach(c => t[c[0]] = sumOf(R, r => r[c[0]]));
+  const daily = DD().map(D => sumOf(R.filter(r => r.iso === D.iso), r => r[B.main]));
+  const items = B.items.map(i => sumOf(R.filter(r => r.it === i), r => r[B.main]));
+  const chs = B.ch.map(c => sumOf(R.filter(r => r.ch === c), r => r[B.main]));
+  $('#main').innerHTML = head(B.t) +
+    `<div class="grid kpi">${B.kpi(t).map(([l, v, f]) => card(l, fv(v, f))).join('')}</div>` +
+    `<div class="grid charts">${chartCard('แนวโน้มรายวัน', 'c1')}${chartCard('เปรียบเทียบตามรายการ', 'c2')}${chartCard('สัดส่วนตามช่องทาง', 'c3')}</div>` +
+    `<div class="glass rv" style="margin-top:20px"><div class="chead"><h3>ตารางข้อมูล (80 แถวแรก)</h3><button class="btn mvb" data-tb>ดูตาราง</button></div><div class="tbl" style="display:none"><table><tr><th>วันที่</th><th>รายการ</th><th>ช่องทาง</th>${B.cols.map(c => `<th>${c[1]}</th>`).join('')}</tr>` +
+    R.slice(0, 80).map(r => `<tr><td>${r.iso}</td><td>${r.it}</td><td>${r.ch}</td>${B.cols.map(c => `<td>${r[c[0]].toLocaleString('th-TH')}</td>`).join('')}</tr>`).join('') + `</table></div></div>`;
+  mk('c1', lineCfg(DD().map(D => D.iso.slice(5)), [{ label: B.cols.find(c => c[0] === B.main)[1], data: daily, borderColor: '#ffb37a', backgroundColor: 'rgba(255,179,122,.15)', fill: true, tension: .35, pointRadius: 0 }]));
+  mk('c2', barCfg(B.items, items, '#4fd1c5'));
+  mk('c3', pieCfg(B.ch, chs));
+  if (k === 'food') viewMenu(BIZ.food);
+}
+
+const barMulti = (labels, a, b) => ({ type: 'bar', data: { labels, datasets: [{ label: 'รายได้', data: a, backgroundColor: '#ffb37a', borderRadius: 6 }, { label: 'ต้นทุน', data: b, backgroundColor: '#4fd1c5', borderRadius: 6 }] }, options: opt(true, { scales: axes }) });
+
+function viewMenu(B) {
+  const menu = S.menu || B.items[0];
+  const R = B.rows.filter(r => r.it === menu), RM = R.filter(inM);
+  const daily = DD().map(D => sumOf(RM.filter(r => r.iso === D.iso), r => r.rev));
+  const chT = B.ch.map(c => sumOf(RM.filter(r => r.ch === c), r => r.rev));
+  const mRev = [0, 1, 2].map(m => sumOf(R.filter(r => r.m === m), r => r.rev));
+  const mCost = [0, 1, 2].map(m => sumOf(R.filter(r => r.m === m), r => r.cost));
+  const rev = sumOf(RM, r => r.rev), cost = sumOf(RM, r => r.cost), o = sumOf(RM, r => r.o);
+  $('#main').insertAdjacentHTML('beforeend',
+    `<div class="glass rv" style="margin-top:28px"><h3>เจาะลึกทีละเมนู</h3><div class="row" style="margin:12px 0">${B.items.map(i => `<button class="btn ${i === menu ? 'on' : ''}" data-menu="${i}">${i}</button>`).join('')}</div>` +
+    `<div class="grid kpi">${card('รายได้ของเมนู', fv(rev, 1))}${card('กำไรขั้นต้น', fv(rev - cost, 1))}${card('ออเดอร์', fv(o, 0))}${card('ต้นทุนต่อจาน', fv(o ? cost / o : 0, 1))}</div></div>` +
+    `<div class="grid charts">${chartCard('รายได้รายวันของ ' + menu, 'd1')}${chartCard('สัดส่วนช่องทางของ ' + menu, 'd2')}${chartCard('รายได้และต้นทุนรายเดือน', 'd3')}</div>`);
+  mk('d1', lineCfg(DD().map(D => D.iso.slice(5)), [{ label: 'รายได้', data: daily }]));
+  mk('d2', pieCfg(B.ch, chT));
+  mk('d3', barMulti(['กันยายน', 'ตุลาคม', 'พฤศจิกายน'], mRev, mCost));
+}
+
+function viewFin() {
+  const idx = DAYS.map((D, i) => i).filter(i => S.m < 0 || DAYS[i].m === S.m);
+  const labels = idx.map(i => DAYS[i].iso.slice(5));
+  const inc = idx.map(i => FI[i].tot);
+  const exp = idx.map(i => sumOf(FE.filter(r => r.iso === DAYS[i].iso), r => r.amt));
+  const sumInc = sumOf(inc, x => x), sumExp = sumOf(exp, x => x);
+  const modes = [['both', 'เทียบรายรับ-รายจ่าย'], ['inc', 'รายรับ'], ['exp', 'รายจ่าย']];
+  const tabs = `<div class="row" style="margin-bottom:6px">${modes.map(([k, t]) => `<button class="btn ${S.fm === k ? 'on' : ''}" data-f="${k}">${t}</button>`).join('')}</div>`;
+  const sets = [];
+  if (S.fm !== 'exp') sets.push({ label: 'รายรับ', data: inc, borderColor: '#ffb37a', backgroundColor: 'rgba(255,179,122,.15)', fill: S.fm === 'inc', tension: .35, pointRadius: 0, borderWidth: 2.5 });
+  if (S.fm !== 'inc') sets.push({ label: 'รายจ่าย', data: exp, borderColor: '#4fd1c5', backgroundColor: 'rgba(79,209,197,.15)', fill: S.fm === 'exp', tension: .35, pointRadius: 0, borderWidth: 2.5 });
+  const rowsHtml = idx.map((i, k) => `<tr><td>${DAYS[i].iso}</td><td>${inc[k].toLocaleString('th-TH')}</td><td>${exp[k].toLocaleString('th-TH')}</td><td>${(inc[k] - exp[k]).toLocaleString('th-TH')}</td></tr>`).join('');
+  $('#main').innerHTML = head('รายรับ / รายจ่าย') + tabs +
+    `<div class="grid kpi">${card('รายรับรวม', fk(sumInc))}${card('รายจ่ายรวม', fk(sumExp))}${card('คงเหลือ', fk(sumInc - sumExp))}${card('รายจ่ายต่อรายรับ', (sumInc ? (sumExp / sumInc * 100).toFixed(1) : 0) + '%')}${card('รายรับเฉลี่ยต่อวัน', fk(sumInc / Math.max(1, idx.length)))}</div>` +
+    `<div class="grid charts">${chartCard('เทียบรายวัน', 'c1')}${S.fm !== 'exp' ? chartCard('สัดส่วนรายรับตามช่องทาง', 'c2') : ''}${S.fm !== 'inc' ? chartCard('สัดส่วนรายจ่ายตามประเภท', 'c3') + chartCard('สัดส่วนรายจ่ายตามร้านค้า', 'c4') : ''}</div>` +
+    `<div class="glass rv" style="margin-top:20px"><div class="chead"><h3>ตารางรายวัน</h3><button class="btn mvb" data-tb>ดูตาราง</button></div><div class="tbl" style="display:none"><table><tr><th>วันที่</th><th>รายรับ</th><th>รายจ่าย</th><th>คงเหลือ</th></tr>${rowsHtml}</table></div></div>`;
+  const incCh = FCH.map(c => sumOf(idx.map(i => FI[i].ch[c]), x => x));
+  const monFE = FE.filter(r => S.m < 0 || r.m === S.m);
+  const expCat = FCAT.map(c => sumOf(monFE.filter(r => r.cat === c), r => r.amt));
+  const expSt = FST.map(s => sumOf(monFE.filter(r => r.st === s), r => r.amt));
+  if (S.fm !== 'exp') mk('c2', pieCfg(FCH, incCh));
+  if (S.fm !== 'inc') { mk('c3', pieCfg(FCAT, expCat)); mk('c4', pieCfg(FST, expSt)); }
+  mk('c1', { type: 'line', data: { labels, datasets: sets }, options: { ...opt(true, { scales: axes, interaction: { mode: 'index', intersect: false } }), plugins: { legend: { display: true, position: 'bottom', labels: { color: '#cfd6e2' } }, tooltip: TT } } });
+}
+
+function viewFinOld() {
+  const tabs = `<div class="row" style="margin-bottom:6px"><button class="btn ${S.fm === 'inc' ? 'on' : ''}" data-f="inc">รายรับ</button><button class="btn ${S.fm === 'exp' ? 'on' : ''}" data-f="exp">รายจ่าย</button></div>`;
+  if (S.fm === 'inc') {
+    const R = FI.filter(inM), chT = FCH.map(c => sumOf(R, r => r.ch[c])), all = sumOf(R, r => r.tot);
+    const daily = R.map(r => r.tot), days = R.map(r => r.iso.slice(5));
+    const top = Math.max(...daily);
+    $('#main').innerHTML = head('รายรับ / รายจ่าย') + tabs +
+      `<div class="grid kpi">${card('ยอดขายรวม', fk(all))}${card('ช่องทางสูงสุด', FCH[chT.indexOf(Math.max(...chT))])}${card('วันยอดสูงสุด', days[daily.indexOf(top)] + ' (' + fk(top) + ')')}${card('เฉลี่ยต่อวัน', fk(all / Math.max(1, R.length)))}</div>` +
+      `<div class="grid charts">${chartCard('ยอดขายตามช่องทาง', 'c1')}${chartCard('ยอดขายรายวัน', 'c2')}</div>` +
+      `<div class="glass rv" style="margin-top:20px"><h3>ตารางรายวัน</h3><div class="tbl"><table><tr><th>วันที่</th>${FCH.map(c => `<th>${c}</th>`).join('')}<th>รวม</th></tr>` +
+      R.map(r => `<tr><td>${r.iso}</td>${FCH.map(c => `<td>${r.ch[c].toLocaleString('th-TH')}</td>`).join('')}<td>${r.tot.toLocaleString('th-TH')}</td></tr>`).join('') + `</table></div></div>`;
+    mk('c1', barCfg(FCH, chT, '#ffb37a'));
+    mk('c2', lineCfg(days, [{ label: 'ยอดขาย', data: daily, borderColor: '#4fd1c5', backgroundColor: 'rgba(79,209,197,.15)', fill: true, tension: .35, pointRadius: 0 }]));
+  } else {
+    const R = FE.filter(inM), catT = FCAT.map(c => sumOf(R.filter(r => r.cat === c), r => r.amt)), stT = FST.map(s => sumOf(R.filter(r => r.st === s), r => r.amt));
+    const all = sumOf(R, r => r.amt);
+    $('#main').innerHTML = head('รายรับ / รายจ่าย') + tabs +
+      `<div class="grid kpi">${card('ค่าใช้จ่ายรวม', fk(all))}${card('ประเภทสูงสุด', FCAT[catT.indexOf(Math.max(...catT))])}${card('ร้านค้าสูงสุด', FST[stT.indexOf(Math.max(...stT))])}${card('จำนวนรายการ', R.length.toLocaleString('th-TH'))}</div>` +
+      `<div class="grid charts">${chartCard('ค่าใช้จ่ายตามประเภท', 'c1')}${chartCard('ค่าใช้จ่ายตามร้านค้า', 'c2')}</div>` +
+      `<div class="glass rv" style="margin-top:20px"><h3>รายการค่าใช้จ่าย (100 แถวแรก)</h3><div class="tbl"><table><tr><th>วันที่</th><th>ประเภท</th><th>ร้านค้า</th><th>จำนวนเงิน</th></tr>` +
+      R.slice(0, 100).map(r => `<tr><td>${r.iso}</td><td>${r.cat}</td><td>${r.st}</td><td>${r.amt.toLocaleString('th-TH')}</td></tr>`).join('') + `</table></div></div>`;
+    mk('c1', pieCfg(FCAT, catT));
+    mk('c2', barCfg(FST, stT, '#8ab4ff'));
+  }
+}
+
+const ORD = {};
+let TMP = {}, EDIT = false;
+function ebar() {}
+function applyOrder() {
+  document.querySelectorAll('.charts').forEach((el, idx) => {
+    const key = S.v + '#' + idx, ord = EDIT && TMP[key] ? TMP[key] : ORD[key];
+    if (ord) ord.forEach(cid => { const n = el.querySelector(`[data-cid="${cid}"]`); if (n) el.appendChild(n); });
+  });
+}
+function moveCard(btn, dir) {
+  const card = btn.closest('[data-cid]'), box = card.parentElement;
+  const key = S.v + '#' + [...document.querySelectorAll('.charts')].indexOf(box);
+  const sib = dir < 0 ? card.previousElementSibling : card.nextElementSibling;
+  if (!sib || !sib.dataset.cid) return;
+  if (dir < 0) box.insertBefore(card, sib); else box.insertBefore(sib, card);
+  TMP[key] = [...box.querySelectorAll('[data-cid]')].map(n => n.dataset.cid);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-edit],[data-ok],[data-cancel],[data-up],[data-dn]'); if (!b) return;
+  if (b.hasAttribute('data-edit')) { EDIT = true; render(); }
+  else if (b.hasAttribute('data-ok')) { Object.assign(ORD, TMP); TMP = {}; EDIT = false; render(); }
+  else if (b.hasAttribute('data-cancel')) { TMP = {}; EDIT = false; render(); }
+  else moveCard(b, b.hasAttribute('data-up') ? -1 : 1);
+});
+
+document.addEventListener('click', e => {
+  const card = e.target.closest('.charts .glass[data-cid]');
+  if (!card || (e.target.closest('button') && !e.target.closest('[data-x]'))) return;
+  card.classList.toggle('open');
+  const x = card.querySelector('[data-x]');
+  if (x) x.textContent = card.classList.contains('open') ? 'ย่อ' : 'ขยาย';
+});
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-tb]'); if (!b) return;
+  const t = b.closest('.glass').querySelector('.tbl');
+  const show = t.style.display === 'none';
+  t.style.display = show ? 'block' : 'none';
+  b.textContent = show ? 'ซ่อนตาราง' : 'ดูตาราง';
+});
+
+function render() {
+  kill();
+  document.querySelectorAll('aside [data-v]').forEach(b => b.classList.toggle('on', b.dataset.v === S.v));
+  document.body.classList.toggle('isIntro', S.v === 'intro');
+  if (S.v === 'intro') viewIntro(); else if (S.v === 'home') viewHome(); else if (S.v === 'fin') viewFin(); else viewBiz(S.v);
+
+  applyChartTheme();
+  observe();
+}
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  e.target.classList.toggle('in', e.isIntersecting);
+  if (!e.isIntersecting) return;
+  e.target.querySelectorAll('canvas').forEach(cv => { const c = Chart.getChart(cv); if (c) { c.reset(); c.update(); } });
+}), { threshold: .15 });
+function observe() { document.querySelectorAll('.rv').forEach(el => io.observe(el)); }
+
+Chart.register({ id: 'run', afterDatasetsDraw(c) {
+  if (true) return;
+  const pts = c.getDatasetMeta(0).data;
+  if (pts.length < 2) return;
+  const f = ((performance.now() / 3000) % 1) * (pts.length - 1), i = Math.floor(f), j = Math.min(i + 1, pts.length - 1), k = f - i;
+  const x = pts[i].x + (pts[j].x - pts[i].x) * k, y = pts[i].y + (pts[j].y - pts[i].y) * k;
+  const ctx = c.ctx; ctx.save(); ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff'; ctx.shadowColor = '#ffb37a'; ctx.shadowBlur = 18; ctx.fill(); ctx.restore();
+} });
+(function loop() { charts.forEach(c => { if (c.options.plugins && c.options.plugins.run) c.draw(); }); requestAnimationFrame(loop); })();
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-v],[data-m],[data-f],[data-menu]');
+  if (!t) return;
+  if (t.dataset.v) { S.v = t.dataset.v; document.body.classList.remove('open'); }
+  else if (t.dataset.m !== undefined) S.m = +t.dataset.m;
+  else if (t.dataset.menu !== undefined) S.menu = t.dataset.menu;
+  else S.fm = t.dataset.f;
+  render();
+  if (!t.dataset.menu) window.scrollTo(0, 0);
+});
+let SND = false, AC = null;
+function tick() {
+  if (!SND) return;
+  AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+  const t = AC.currentTime, o = AC.createOscillator(), g = AC.createGain();
+  o.type = 'sine'; o.frequency.setValueAtTime(1400, t); o.frequency.exponentialRampToValueAtTime(700, t + .05);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.12, t + .005); g.gain.exponentialRampToValueAtTime(.0001, t + .09);
+  o.connect(g).connect(AC.destination); o.start(t); o.stop(t + .1);
+}
+const ICON_MOON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M21 13.5A9 9 0 1 1 10.5 3a7 7 0 0 0 10.5 10.5z"/></svg>';
+const ICON_SUN = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>';
+const OLDHEX = {'#ffb37a':'--c1','#4fd1c5':'--c2','#8ab4ff':'--c3','#c9a7ff':'--c4','#ff8fb1':'--c5','#f6e05e':'--c6'};
+const OLDRGB = {'255,179,122':'--c1','79,209,197':'--c2','138,180,255':'--c3','201,167,255':'--c4','255,143,177':'--c5','246,224,94':'--c6'};
+const toRGB = h => { const n = parseInt(h.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(','); };
+function recolor(cs) {
+  const val = v => cs.getPropertyValue(v).trim();
+  window.C1RGB = toRGB(val('--c1'));
+  const conv = v => {
+    if (Array.isArray(v)) return v.map(conv);
+    if (typeof v !== 'string') return v;
+    const k = v.toLowerCase();
+    if (OLDHEX[k]) return val(OLDHEX[k]);
+    const m = v.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (m) { const key = m[1] + ',' + m[2] + ',' + m[3]; if (OLDRGB[key]) return v.replace(m[0], (m[0].startsWith('rgba') ? 'rgba(' : 'rgb(') + toRGB(val(OLDRGB[key]))); }
+    return v;
+  };
+  charts.forEach(c => c.data.datasets.forEach(d => ['borderColor', 'backgroundColor', 'pointBackgroundColor', 'pointHoverBackgroundColor', 'pointHoverBorderColor'].forEach(k => {
+    if (d[k] === undefined || typeof d[k] === 'function') return;
+    d.$o = d.$o || {}; if (!(k in d.$o)) d.$o[k] = d[k];
+    d[k] = conv(d.$o[k]);
+  })));
+}
+function applyChartTheme() {
+  const cs = getComputedStyle(document.documentElement), col = cs.getPropertyValue('--ct').trim(), grid = cs.getPropertyValue('--cg').trim();
+  Chart.defaults.color = col;
+  recolor(cs);
+  charts.forEach(c => {
+    const o = c.options;
+    if (o.plugins && o.plugins.legend && o.plugins.legend.labels) o.plugins.legend.labels.color = col;
+    if (o.plugins && o.plugins.tooltip) { const dk = document.documentElement.classList.contains('dark'); Object.assign(o.plugins.tooltip, { backgroundColor: dk ? 'rgba(16,18,26,.94)' : 'rgba(255,255,255,.97)', borderColor: dk ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.12)', titleColor: dk ? '#ffffff' : '#141416', bodyColor: dk ? '#f5f5f7' : '#141416' }); }
+    if (o.scales) Object.values(o.scales).forEach(s => { if (s.ticks) s.ticks.color = col; if (s.grid) s.grid.color = grid; });
+    c.update('none');
+  });
+}
+function setMode(dark) {
+  document.documentElement.classList.toggle('dark', dark);
+  $('#thm').innerHTML = dark ? ICON_SUN : ICON_MOON;
+  applyChartTheme();
+}
+$('#thm').onclick = () => setMode(!document.documentElement.classList.contains('dark'));
+$('#menu').onclick = () => document.body.classList.toggle('open');
+
+render();
+setMode(true);
+</script>
+</body>
+</html>
