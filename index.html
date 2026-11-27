@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#217346">
 <title>Data_for_fastwork - แดชบอร์ดรวมข้อมูลธุรกิจ</title>
 <meta name="description" content="รวมข้อมูลจากทุกแหล่งเข้าเป็นฐานเดียว ส่งออกไปยังโปรแกรมทำแดชบอร์ด แล้วขึ้นคลาวด์เป็นเว็บไซต์">
 <meta property="og:title" content="Data_for_fastwork - แดชบอร์ดรวมข้อมูลธุรกิจ">
@@ -15,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fastworkdata.vercel.app/og-image.png">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -175,11 +176,89 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 .sp-tile i:nth-child(3){background:var(--b3);animation-duration:1s;animation-delay:-.6s}
 @keyframes sp-bounce{0%,100%{transform:scaleY(.33)}50%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.sp-tile i{animation-duration:2.4s}}
+/* ===== ส่วนเพิ่มใหม่: ไอเดียว้าว (ครอบด้วย .sx) ===== */
+:root{--k1:#1f9a8a;--k2:#8a7a60;--tile:#fff;--glow:rgba(31,154,138,.18)}html.dark{--k1:#7fe3d6;--k2:#c9b8a3;--tile:#1f1f24;--glow:rgba(127,227,214,.2)}
+.sx section{max-width:1080px;margin:0 auto;padding:54px 16px 20px}.sx h2{font-size:clamp(1.4rem,3.2vw,2rem);margin:0 0 6px;line-height:1.25}.sx .note{color:var(--mu);margin:0 0 22px;max-width:620px;font-size:.95rem}.sx .glass{position:relative;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),var(--glow),transparent 65%),var(--gl);border:1px solid var(--bd);border-radius:20px;backdrop-filter:blur(20px) saturate(130%);-webkit-backdrop-filter:blur(20px) saturate(130%);box-shadow:0 18px 44px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08);padding:18px}.sx .glass[data-tilt]{transition:transform .25s ease-out}.sx .muted{color:var(--mu);font-size:.85rem}.sx .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.sx .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}.sx .kpis>div{background:var(--tile);border-radius:14px;padding:12px 14px}.sx .kpis b{display:block;font-size:1.35rem;color:var(--k1);font-variant-numeric:tabular-nums}.sx .float{animation:fl 6s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-10px)}}.sx .mini svg{width:100%;height:80px;display:block;margin:10px 0}.sx .mb{display:flex;align-items:flex-end;gap:7px;height:64px}.sx .mb i{flex:1;background:var(--k2);border-radius:5px;height:var(--h);transition:height 1.2s ease}.sx .live{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;color:var(--mu)}.sx .live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--k1);animation:bl 1.4s infinite}@keyframes bl{50%{opacity:.25}}.sx .try{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:18px}.sx textarea{width:100%;min-height:130px;font:inherit;font-size:.9rem;color:var(--tx);background:var(--tile);border:1px solid var(--bd);border-radius:12px;padding:10px;resize:vertical}.sx .chip{font:inherit;font-size:.85rem;color:var(--tx);background:var(--gl);border:1px solid var(--bd);border-radius:999px;padding:6px 14px;cursor:pointer}.sx .chip:hover{border-color:var(--k1)}.sx .err{color:#ff8a7a;font-size:.88rem;margin:8px 0 0;min-height:1.3em}.sx .bars{display:flex;align-items:flex-end;gap:8px;height:190px;margin-top:16px}.sx .col{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;font-size:.72rem;text-align:center}.sx .col i{width:100%;max-width:46px;height:0;background:linear-gradient(var(--k1),var(--k2));border-radius:7px 7px 3px 3px;transition:height .9s cubic-bezier(.2,.8,.2,1)}.sx .go .col i{height:var(--h)}.sx .col small{color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}.sx .col em{font-style:normal;font-variant-numeric:tabular-nums}.sx .ph-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}.sx .phstage{perspective:900px;display:grid;place-items:center;padding:20px 0}.sx .phone{width:230px;height:430px;border:8px solid #2c2c32;border-radius:38px;background:var(--tile);padding:30px 14px 14px;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.4);transition:transform .15s linear}.sx .phone::before{content:"";position:absolute;top:8px;left:50%;width:70px;height:16px;margin-left:-35px;border-radius:10px;background:#2c2c32}.sx .pb{display:flex;align-items:flex-end;gap:7px;height:130px;margin-top:12px}.sx .pb i{flex:1;background:var(--k1);border-radius:5px;height:0}.sx .pb i:nth-child(even){background:var(--k2)}.sx .phone .k{background:var(--gl);border-radius:12px;padding:8px 10px;margin-top:8px;font-size:.78rem}.sx .phone .k b{display:block;font-size:1.2rem}.sx .ba{padding:0;height:310px;overflow:hidden;--p:50%}.sx .ba>div{position:absolute;inset:0;padding:16px}.sx .bef{background:#f3f6f3;color:#222;clip-path:inset(0 calc(100% - var(--p)) 0 0)}.sx .bef table{border-collapse:collapse;width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;min-width:420px}.sx .bef th{background:#1d6f42;color:#fff;font-weight:600;padding:2px 6px}.sx .bef td{border:1px solid #cfd8cf;padding:2px 6px;text-align:right}.sx .bef td.x{background:#ffd9d4;color:#b3261e}.sx .hnd{position:absolute;top:0;bottom:0;left:var(--p);width:3px;margin-left:-1px;background:var(--k1);pointer-events:none;z-index:2}.sx input[type=range]{width:100%;margin-top:14px;accent-color:var(--k1)}.sx .tag{position:absolute;top:10px;right:12px;font-size:.78rem;font-weight:700;z-index:1}.sx .bef .tag{left:12px;right:auto;color:#b3261e}.sx .three{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.sx .three .glass{min-height:150px}.sx .three b{display:block;font-size:1.1rem;margin-bottom:4px}.sx canvas{width:100%;height:380px;display:block}.sx .ask input{width:100%;font:inherit;font-size:1.05rem;color:var(--tx);background:var(--tile);border:1px solid var(--bd);border-radius:14px;padding:13px 16px}.sx .ans{margin-top:16px;min-height:90px}.sx .ans b.big{font-size:2rem;color:var(--k1)}@media(max-width:760px){.sx .try,.sx .ph-wrap{grid-template-columns:1fr}
+}@media(prefers-reduced-motion:reduce){.sx .float,.sx .live::before{animation:none}
+}
+.sx .sxh{margin:26px auto 0;text-align:left}.sx .sxh .mini svg{height:56px}@media(max-height:780px){.sx .sxh{display:none}}
+
+/* ===== ธีม Excel (วางท้ายสุดเพื่อทับสไตล์เดิมเฉพาะจุด) ===== */
+:root{--ac:#217346;--ac2:#107c41;--tx:#1f1f1f;--mu:#605e5c;--gl:#fff;--bd:#d0d0d0;--sh:none;--th:#e9e9e9;--sel:#217346;--selt:#fff;--ct:#323130;--cg:#e1e1e1;--c1:#4472c4;--c2:#ed7d31;--c3:#a5a5a5;--c4:#ffc000;--c5:#5b9bd5;--c6:#70ad47;--cardf:#fff;--cardt:#dff0e5;--barf:#e6e6e6;--line:#d0d0d0;--k1:#217346;--k2:#4472c4;--tile:#f3f3f3;--sheet:#fff;--grid:#e3e3e3;--title:#217346;
+--cur:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M13 4h6v9h9v6h-9v9h-6v-9H4v-6h9z' fill='white' stroke='%23222' stroke-width='1.6'/%3E%3C/svg%3E") 16 16,cell}
+html.dark{--ac:#4ec27f;--ac2:#33a867;--tx:#f0f0f0;--mu:#b0b0b0;--gl:#292929;--bd:#3d3d3d;--th:#333;--sel:#4ec27f;--selt:#0b1a10;--ct:#e0e0e0;--cg:#3a3a3a;--cardf:#292929;--cardt:#1e3b2a;--barf:#3a3a3a;--line:#3d3d3d;--k1:#4ec27f;--k2:#5b9bd5;--tile:#2b2b2b;--sheet:#1f1f1f;--grid:#333;--title:#185c37}
+.intro{--hal:#fff;--sc:#217346;--glow:rgba(33,115,70,.25)}
+html.dark .intro{--hal:#1f1f1f;--sc:#4ec27f;--glow:rgba(78,194,127,.3)}
+html,html *{cursor:var(--cur)!important}
+html textarea,html input:not([type=range]):not([type=file]){cursor:text!important}
+body{font-family:'Calibri','Sarabun',sans-serif;background:linear-gradient(90deg,var(--grid) 1px,transparent 1px) 36px 2px/96px 100%,linear-gradient(var(--grid) 1px,transparent 1px) 0 2px/100% 24px,var(--sheet);background-attachment:fixed}
+.glass,.sx .glass{background:var(--gl);border:1px solid var(--bd);border-radius:2px;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.btn{backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:3px}
+.btn:hover{background:var(--th)}
+.btn.on{background:var(--ac);color:var(--selt)}
+#menu,.ios{border-radius:3px}
+.intro .pill,.sx .chip{border-radius:3px}
+th,td{border:1px solid var(--bd)}
+.top{position:fixed;top:0;left:0;right:0;width:auto;max-width:none;margin:0;height:52px;padding:0 14px;border-radius:0;background:var(--title);border:0;color:#fff}
+.top .muted{color:rgba(255,255,255,.82)}
+aside{top:98px;bottom:28px;left:0;border-radius:0}
+main{padding:112px 18px 60px 54px}
+.intro .df{padding-top:106px}
+.intro .qdf{padding-top:124px}
+#fbar{position:fixed;top:52px;left:0;right:0;height:26px;z-index:19;display:flex;align-items:center;background:var(--gl);border-bottom:1px solid var(--bd);font-size:.85rem}
+#fbar>*{height:100%;line-height:26px;border-right:1px solid var(--bd)}
+#fbar .nb{width:84px;text-align:center}
+#fbar .fxb{padding:0 12px;font-style:italic;font-weight:700;color:var(--mu)}
+#fbar .fxt{padding:0 12px;border:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#cols{position:fixed;top:78px;left:0;right:0;height:20px;z-index:19;display:flex;overflow:hidden;background:var(--th);border-bottom:1px solid var(--bd);font-size:.75rem;color:var(--mu);pointer-events:none;user-select:none}
+#cols b{flex:none;width:36px;border-right:1px solid var(--bd)}
+#cols span{flex:none;width:96px;text-align:center;line-height:20px;border-right:1px solid var(--bd)}
+#rows{position:fixed;top:98px;left:0;bottom:28px;width:36px;z-index:18;overflow:hidden;background:var(--th);border-right:1px solid var(--bd);font-size:.72rem;color:var(--mu);pointer-events:none;user-select:none}
+#rows span{display:block;height:24px;line-height:24px;text-align:center;border-bottom:1px solid var(--bd)}
+#tabs{position:fixed;left:0;right:0;bottom:0;height:28px;z-index:25;display:flex;background:var(--th);border-top:1px solid var(--bd);overflow-x:auto;scrollbar-width:none}
+#tabs button{flex:none;font:inherit;font-size:.85rem;color:var(--tx);background:transparent;border:0;border-right:1px solid var(--bd);padding:0 16px;height:100%}
+#tabs button:hover{background:var(--gl)}
+#tabs button.on{background:var(--gl);color:var(--ac);font-weight:700;box-shadow:inset 0 -3px 0 var(--ac)}
+@media(max-width:860px){#rows,#cols b{display:none}body{background-position:0 2px,0 2px,0 0}main{padding-left:18px}.intro .qdf{padding:124px 22px 44px}}
+
+/* ===== ธีม Power BI: ใช้เฉพาะหน้าแดชบอร์ด (html.pbi) หน้าแรกยังเป็น Excel ===== */
+html.pbi{--ac:#252423;--ac2:#01b8aa;--tx:#252423;--mu:#605e5c;--gl:#fff;--bd:#e1dfdd;--th:#f3f2f1;--sel:#f2c811;--selt:#252423;--ct:#323130;--cg:#e1dfdd;--c1:#374649;--c2:#01b8aa;--c3:#fd625e;--c4:#f2c80f;--c5:#5f6b6d;--c6:#8ad4eb;--sheet:#eaeaea;--title:#252423}
+html.pbi.dark{--ac:#f3f2f1;--tx:#f3f2f1;--mu:#a19f9d;--gl:#292827;--bd:#3b3a39;--th:#323130;--ct:#d2d0ce;--cg:#3b3a39;--c1:#8ad4eb;--c5:#a19f9d;--sheet:#1b1a19;--title:#11100f}
+html.pbi body{font-family:'Segoe UI','Sarabun',sans-serif;background:var(--sheet)}
+html.pbi #fbar,html.pbi #cols,html.pbi #rows{display:none}
+html.pbi main{padding:76px 18px 60px}
+html.pbi aside{top:64px;bottom:34px}
+html.pbi .glass{background:var(--gl);border:1px solid var(--bd);border-radius:2px;box-shadow:0 1.6px 3.6px rgba(0,0,0,.13),0 .3px .9px rgba(0,0,0,.11)}
+html.pbi .kpi .glass{border-left:4px solid #f2c811}
+html.pbi .kpi b{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--tx);font-weight:600}
+html.pbi .btn{border-radius:2px;border:1px solid var(--bd);background:var(--gl)}
+html.pbi .btn:hover{background:var(--th)}
+html.pbi .btn.on{background:#f2c811;color:#252423;border-color:#f2c811;font-weight:700}
+html.pbi aside .btn{border:0;background:transparent}
+html.pbi aside .btn.on{background:var(--th);color:var(--tx);box-shadow:inset 3px 0 0 #f2c811}
+html.pbi th{background:var(--gl);border:0;border-bottom:2px solid var(--tx)}
+html.pbi td{border:0;border-bottom:1px solid var(--bd)}
+html.pbi tr:nth-child(even) td{background:rgba(127,127,127,.06)}
+html.pbi #tabs button.on{background:var(--gl);color:var(--tx);box-shadow:inset 0 -3px 0 #f2c811}
+@media(max-width:860px){html.pbi main{padding:76px 14px 60px}}
+.top b{white-space:nowrap}
+@media(max-width:600px){.top .muted{display:none}}
+/* เว้นที่ให้แถบเลขแถวด้านซ้าย (36px) ไม่ทับเนื้อหาส่วนใหม่ */
+@media(min-width:861px){.intro .sx section{padding-left:56px}}
+/* หน้าโหลด: พายหมุนครบรอบแล้วหยุดนิ่งเล็กน้อย ชิ้นสีเหลืองขยับเข้า-ออก */
+.sp-tile{display:block;padding:0;background:none;overflow:hidden}
+.sp-tile svg{width:160px;height:160px;display:block}
+.sp-tile .pie{transform-origin:490px 545px;animation:sp-spin 2.4s cubic-bezier(.65,0,.35,1) infinite}
+.sp-tile .ys{animation:sp-ys 1.2s ease-in-out infinite}
+@keyframes sp-spin{to{transform:rotate(360deg)}}
+@keyframes sp-ys{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,34.6px)}}
+@media(prefers-reduced-motion:reduce){.sp-tile .pie,.sp-tile .ys{animation:none}}
+.top .brand{box-shadow:0 0 0 1.5px rgba(255,255,255,.7)}
 </style>
 </head>
 <body>
-<div id="splash" aria-label="กำลังโหลด"><div class="sp-tile"><i></i><i></i><i></i></div></div>
-<header class="top glass"><button class="btn icon" id="menu" aria-label="เปิดเมนู" aria-expanded="false"><span></span><span></span><span></span></button><span class="brand"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1e1e22"/><rect x="14" y="30" width="8" height="20" rx="3" fill="#f5f5f7"/><rect x="28" y="20" width="8" height="30" rx="3" fill="#c9b8a3"/><rect x="42" y="12" width="8" height="38" rx="3" fill="#8c8c96"/></svg></span><b>แดชบอร์ด</b><span class="muted" style="margin-left:auto">ข้อมูลตัวอย่าง ก.ย. – พ.ย. 2026</span><button class="ios" id="thm" aria-label="โหมดมืด"></button></header>
+<div id="splash" aria-label="กำลังโหลด"><div class="sp-tile"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><linearGradient id="gsp" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1024"><stop offset="0" stop-color="#2a8a57"/><stop offset="1" stop-color="#185c37"/></linearGradient></defs><rect width="1024" height="1024" fill="url(#gsp)"/><g stroke="#fff" stroke-opacity=".18" stroke-width="8"><path d="M341 0V1024M683 0V1024M0 341H1024M0 683H1024"/></g><g class="pie"><path d="M490.0 545.0L490.0 290.0A255 255 0 1 1 445.7 796.1Z" fill="#ffffff" stroke="url(#gsp)" stroke-width="20" stroke-linejoin="round"/><path d="M490.0 545.0L445.7 796.1A255 255 0 0 1 269.2 417.5Z" fill="#d6ecdf" stroke="url(#gsp)" stroke-width="20" stroke-linejoin="round"/><g class="ys"><path d="M470.0 510.4L249.2 382.9A255 255 0 0 1 470.0 255.4Z" fill="#f2c811" stroke="url(#gsp)" stroke-width="20" stroke-linejoin="round"/></g></g></svg></div></div>
+<header class="top glass"><button class="btn icon" id="menu" aria-label="เปิดเมนู" aria-expanded="false"><span></span><span></span><span></span></button><span class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024"><defs><linearGradient id="gbr" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1024"><stop offset="0" stop-color="#2a8a57"/><stop offset="1" stop-color="#185c37"/></linearGradient><clipPath id="cbr"><rect width="1024" height="1024" rx="0"/></clipPath></defs><g clip-path="url(#cbr)"><rect width="1024" height="1024" fill="url(#gbr)"/><g stroke="#fff" stroke-opacity=".18" stroke-width="8"><path d="M341 0V1024M683 0V1024M0 341H1024M0 683H1024"/></g><path d="M490.0 545.0L490.0 290.0A255 255 0 1 1 445.7 796.1Z" fill="#ffffff" stroke="url(#gbr)" stroke-width="20" stroke-linejoin="round"/><path d="M490.0 545.0L445.7 796.1A255 255 0 0 1 269.2 417.5Z" fill="#d6ecdf" stroke="url(#gbr)" stroke-width="20" stroke-linejoin="round"/><path d="M470.0 510.4L249.2 382.9A255 255 0 0 1 470.0 255.4Z" fill="#f2c811" stroke="url(#gbr)" stroke-width="20" stroke-linejoin="round"/></g></svg></span><b>แดชบอร์ด</b><span class="muted" style="margin-left:auto">ข้อมูลตัวอย่าง ก.ย. – พ.ย. 2026</span><button class="ios" id="thm" aria-label="โหมดมืด"></button></header>
 <aside class="glass">
   <button class="btn on" data-v="intro">หน้าแรก</button>
   <button class="btn" data-v="home">ภาพรวมธุรกิจ</button>
@@ -189,11 +268,15 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
   <button class="btn" data-v="fin">รายรับ / รายจ่าย</button>
 </aside>
 <main id="main"></main>
+<div id="fbar" aria-hidden="true"><span class="nb">A1</span><span class="fxb">fx</span><span class="fxt" id="fxt"></span></div>
+<div id="cols" aria-hidden="true"></div><div id="rows" aria-hidden="true"></div>
+<div id="tabs" role="tablist"><button data-v="intro">หน้าแรก</button><button data-v="home">ภาพรวมธุรกิจ</button><button data-v="food">ธุรกิจอาหาร</button><button data-v="online">ขายของออนไลน์</button><button data-v="social">วัดผลโซเชียล</button><button data-v="fin">รายรับ / รายจ่าย</button></div>
 <template id="introT"><div class="intro">
 <section class="qs" id="qs"><div class="qdf">
   <div class="tq-q"><span id="tq"></span><i class="tq-cur" aria-hidden="true"></i></div>
   <p class="lead">รวมข้อมูลจากทุกแหล่งเข้าเป็นฐานเดียว ส่งออกไปยังโปรแกรมทำแดชบอร์ด แล้วขึ้นคลาวด์เป็นเว็บไซต์ เลื่อนลงไปดูทีละขั้น</p>
   <div class="btns"><a class="pill" href="#story">เริ่มดูการทำงาน</a><a class="pill ghost" href="#" data-v="home">ดูแดชบอร์ดตัวอย่าง</a></div>
+  <div class="sx" style="width:100%;max-width:520px"><div class="sxh"><div class="float"><div class="glass mini"><div class="row" style="justify-content:space-between"><b>ภาพรวมวันนี้</b><span class="live">ข้อมูลตัวอย่าง</span></div><div class="kpis" style="margin-top:10px"><div><span class="muted">ยอดขายรวม</span><b id="liveK" class="cnt" data-n="482300" data-p="฿">฿0</b></div><div><span class="muted">ออเดอร์</span><b class="cnt" data-n="1284">0</b></div><div><span class="muted">กำไรสุทธิ</span><b class="cnt" data-n="96450" data-p="฿">฿0</b></div></div><svg viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true"><path id="spa" fill="var(--k1)" fill-opacity=".14"/><path id="sp" fill="none" stroke="var(--k1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div></div>
   <div class="scue" id="scCue" aria-hidden="true">
     <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
     <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
@@ -318,6 +401,70 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
   </div></div>
 </section>
 
+<div class="sx"><section id="sxBA">
+<h2>Excel เดิม เทียบกับแดชบอร์ด</h2>
+<p class="note">ลากแถบเลื่อนเพื่อเทียบ ฝั่งซ้ายคือไฟล์ที่ตัวเลขไม่ตรงกัน ฝั่งขวาคือภาพเดียวกันหลังรวมข้อมูล</p>
+<div class="glass ba" id="ba">
+  <div style="background:var(--tile)"><span class="tag" style="color:var(--k1)">แดชบอร์ด</span>
+    <div class="kpis" style="margin-top:26px;padding-left:min(46%,260px)"><div><span class="muted">ยอดขาย</span><b>฿482,300</b></div><div><span class="muted">กำไร</span><b>฿96,450</b></div></div>
+    <div class="mb" style="margin:22px 0 0 min(46%,260px);height:120px"><i style="--h:45%"></i><i style="--h:60%"></i><i style="--h:52%"></i><i style="--h:80%"></i><i style="--h:70%"></i><i style="--h:95%"></i></div>
+  </div>
+  <div class="bef" style="overflow:hidden"><span class="tag">Excel เดิม</span><table id="xtbl" style="margin-top:26px"></table></div>
+  <div class="hnd"></div>
+</div>
+<input type="range" id="rg" min="5" max="95" value="50" aria-label="เลื่อนเพื่อเทียบ Excel กับแดชบอร์ด">
+</section>
+<section id="sxPhone">
+<h2>เปิดดูจากมือถือได้ทันที</h2>
+<p class="note">เลื่อนดู แล้วโทรศัพท์จะหมุนตาม แดชบอร์ดนี้เปิดได้จากมือถือจริง</p>
+<div class="ph-wrap">
+  <div class="phstage"><div class="phone" id="phone">
+    <b>แดชบอร์ด</b>
+    <div class="k"><span class="muted">ยอดขายวันนี้</span><b>฿18,420</b></div>
+    <div class="pb" id="pb"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="k"><span class="muted">ออเดอร์ใหม่</span><b>42</b></div>
+  </div></div>
+  <div><h3 style="margin:0 0 8px">ถูกถามตัวเลข เปิดดูได้ทันที</h3><p class="muted">ไม่ต้องรอส่งไฟล์ Excel เปิดลิงก์เดียวก็เห็นตัวเลขล่าสุดจากมือถือหรือคอมพิวเตอร์</p></div>
+</div>
+</section>
+<section id="sxFlow">
+<h2>ข้อมูลทุกแหล่งไหลเข้าฐานเดียว</h2>
+<p class="note">จุดข้อมูลวิ่งจากแต่ละแหล่งเข้าฐาน แล้วออกไปยัง Excel, Power BI และเว็บไซต์</p>
+<div class="glass" style="padding:8px"><canvas id="fl" aria-label="ภาพข้อมูลวิ่งจากแหล่งต่างๆ เข้าสู่ฐานข้อมูลเดียว"></canvas></div>
+</section>
+<section id="sxFeat">
+<h2>สิ่งที่คุณได้รับ</h2>
+<p class="note">รวมข้อมูล ส่งออก และขึ้นเว็บไซต์ ครบในงานเดียว</p>
+<div class="three">
+  <div class="glass"><b>รวมข้อมูล</b><span class="muted">ทุกแหล่งเข้าฐานเดียว</span></div>
+  <div class="glass"><b>ส่งออกได้</b><span class="muted">Excel, Power BI, Google Sheets</span></div>
+  <div class="glass"><b>ขึ้นเว็บไซต์</b><span class="muted">แชร์เป็นลิงก์เดียว</span></div>
+</div>
+</section>
+<section id="sxTry">
+<h2>ลองกับข้อมูลของคุณ</h2>
+<p class="note">วางข้อมูลสองคอลัมน์ (ชื่อ, ตัวเลข) หรือเลือกไฟล์ CSV แล้วดูแดชบอร์ดทันที ประมวลผลในเบราว์เซอร์ ข้อมูลไม่ถูกส่งไปไหน</p>
+<div class="try">
+  <div class="glass">
+    <div class="row" style="margin-bottom:10px"><button class="chip" data-p="food">ร้านอาหาร</button><button class="chip" data-p="online">ขายออนไลน์</button><button class="chip" data-p="social">โซเชียล</button></div>
+    <textarea id="csv" aria-label="ข้อมูล CSV" placeholder="สินค้า,ยอดขาย&#10;เสื้อยืด,12500&#10;กระเป๋าผ้า,8300&#10;แก้วเซรามิก,6100"></textarea>
+    <div class="row" style="margin-top:10px"><button class="pill" id="go">สร้างแดชบอร์ด</button><label class="chip">เลือกไฟล์ CSV<input type="file" id="file" accept=".csv,.txt" hidden></label></div>
+    <p class="err" id="err" role="alert"></p>
+    <p class="muted">ไม่ใส่ comma คั่นหลักพันในตัวเลข</p>
+  </div>
+  <div class="glass" id="out"><p class="muted">กดตัวอย่างด้านซ้ายหรือวางข้อมูลของคุณ แดชบอร์ดจะขึ้นตรงนี้</p></div>
+</div>
+</section>
+<section id="sxAsk">
+<h2>ถามข้อมูลด้วยภาษาไทย</h2>
+<p class="note">พิมพ์คำถามสั้นๆ ตัวอย่างนี้ตอบเรื่องยอดขาย ออเดอร์ กำไร และรายจ่าย ในเดือน ก.ย. – พ.ย. (ข้อมูลสมมติ)</p>
+<div class="glass ask">
+  <input id="q" placeholder="เช่น ยอดขายเดือนตุลาคมเท่าไหร่" aria-label="คำถามเกี่ยวกับข้อมูล" autocomplete="off">
+  <div class="row" style="margin-top:10px"><button class="chip">ยอดขายเดือนตุลาคมเท่าไหร่</button><button class="chip">กำไรล่าสุด</button><button class="chip">ออเดอร์แต่ละเดือน</button><button class="chip">รายจ่ายเดือนกันยายน</button></div>
+  <div class="ans" id="ans"><p class="muted">เลือกคำถามด้านบนหรือพิมพ์เอง แล้วกด Enter</p></div>
+</div>
+</section></div>
+
 <section class="cta" id="cta">
   <h2>อยากให้ข้อมูลของคุณ<br>ขึ้นเป็นเว็บไซต์แบบนี้ไหม</h2>
   <p>บอกแหล่งข้อมูลที่มีอยู่ตอนนี้ เราจะบอกขั้นตอนและขอบเขตงานให้ก่อนเริ่มทำ</p>
@@ -329,7 +476,8 @@ html.dark .intro{--hal:#17171a;--sc:#7fe3d6;--glow:rgba(127,227,214,.35)}
 
 <script>
 const $ = s => document.querySelector(s);
-const PAL = ['#1f9a8a', '#4fd1c5', '#7fe3d6', '#2f6f68', '#9fd9cf', '#c6ddd9'];
+const PAL_XL = ['#4472C4', '#ED7D31', '#A5A5A5', '#FFC000', '#5B9BD5', '#70AD47'], PAL_PBI = ['#01B8AA', '#F2C80F', '#FD625E', '#8AD4EB', '#FE9666', '#A66999'];
+let PAL = PAL_XL;
 let seed = 5;
 const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 const ri = (a, b) => Math.floor(a + rnd() * (b - a + 1));
@@ -512,6 +660,167 @@ const INTRO_STEPS = [
 const iclamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const iease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 let IN = null;
+/* ===== ส่วนเพิ่มใหม่: ไอเดียว้าว ===== */
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let SXC=[];                                   // รายการล้างค่าเมื่อออกจากหน้าแรก
+function sxOff(){SXC.forEach(f=>{try{f()}catch(e){}});SXC=[]}
+function initSx(){
+  const on=(t,ev,fn,o)=>{t.addEventListener(ev,fn,o);SXC.push(()=>t.removeEventListener(ev,fn,o))};
+  const $$=s=>[...document.querySelectorAll(s)];
+  const fmt=n=>Math.round(n).toLocaleString('th-TH');
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ข้อ 2: ตัวเลขนับขึ้น + กราฟสด */
+function countUp(el){
+  const n=+el.dataset.n,p=el.dataset.p||'';
+  if(RM){el.textContent=p+fmt(n);return}
+  const t0=performance.now();
+  (function f(t){const k=Math.min(1,(t-t0)/1400);el.textContent=p+fmt(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0);
+}
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target)}}),{threshold:.4});
+$$('.cnt').forEach(el=>cio.observe(el));SXC.push(()=>cio.disconnect());
+const bars=[];
+const setBars=()=>bars.forEach(b=>b.style.setProperty('--h',(30+Math.random()*70)+'%'));
+setTimeout(setBars,300);
+let sp=Array.from({length:24},(_,i)=>40+Math.sin(i/3)*12+i*1.2+Math.random()*6),live=482300,liveOn=false;
+function drawSp(){
+  const W=300,H=80,mn=Math.min(...sp),mx=Math.max(...sp);
+  const d=sp.map((v,i)=>(i?'L':'M')+(i*W/(sp.length-1)).toFixed(1)+' '+(H-6-(v-mn)/(mx-mn||1)*(H-12)).toFixed(1)).join(' ');
+  $('#sp').setAttribute('d',d);$('#spa').setAttribute('d',d+` L${W} ${H} L0 ${H}Z`);
+}
+drawSp();setTimeout(()=>liveOn=true,2200);
+if(!RM)SXC.push((id=>()=>clearInterval(id))(setInterval(()=>{
+  sp.shift();sp.push(sp[sp.length-1]+(Math.random()-.42)*6);drawSp();setBars();
+  if(liveOn){live+=Math.round(60+Math.random()*340);$('#liveK').textContent='฿'+fmt(live)}
+},1600)));
+
+/* ข้อ 1: สร้างแดชบอร์ดจากข้อมูลที่วางหรือไฟล์ CSV */
+const PRE={
+  food:[['จ.',18200],['อ.',16400],['พ.',19800],['พฤ.',21500],['ศ.',27300],['ส.',34100],['อา.',31200]],
+  online:[['เสื้อยืด',12500],['กระเป๋าผ้า',8300],['แก้วเซรามิก',6100],['หมวกแก๊ป',9400],['สบู่สมุนไพร',4700]],
+  social:[['Facebook',48200],['Instagram',31500],['TikTok',62800],['YouTube',17400],['LINE OA',9800]]
+};
+function parseCSV(t){
+  const rows=[];
+  for(const line of t.trim().split(/\r?\n/).slice(0,200)){
+    const p=line.split(/[,\t;]/);if(p.length<2)continue;
+    const v=parseFloat(p[1].replace(/[฿\s]/g,''));
+    if(isFinite(v))rows.push([p[0].trim()||'-',v]);
+  }
+  return rows;
+}
+function build(rows){
+  const err=$('#err');err.textContent='';
+  if(rows.length<2){err.textContent='อ่านข้อมูลไม่ได้ ต้องมีอย่างน้อย 2 แถว แถวละ "ชื่อ,ตัวเลข" (แถวหัวตารางจะถูกข้ามให้)';return}
+  let note='';if(rows.length>24){rows=rows.slice(0,24);note='แสดง 24 แถวแรก'}
+  const vals=rows.map(r=>r[1]),sum=vals.reduce((a,b)=>a+b,0),mx=Math.max(...vals),top=rows[vals.indexOf(mx)][0];
+  $('#out').innerHTML=`<div class="kpis"><div><span class="muted">รวม</span><b>${fmt(sum)}</b></div><div><span class="muted">เฉลี่ย</span><b>${fmt(sum/rows.length)}</b></div><div><span class="muted">สูงสุด: ${esc(top)}</span><b>${fmt(mx)}</b></div></div>
+  <div class="bars">${rows.map(([l,v])=>`<div class="col" title="${esc(l)}: ${fmt(v)}"><em>${fmt(v)}</em><i style="--h:${Math.max(2,v/mx*100)}%"></i><small>${esc(l)}</small></div>`).join('')}</div>${note?`<p class="muted">${note}</p>`:''}`;
+  const o=$('#out');o.classList.remove('go');requestAnimationFrame(()=>requestAnimationFrame(()=>o.classList.add('go')));
+}
+$$('[data-p]').forEach(b=>b.onclick=()=>{const r=PRE[b.dataset.p];$('#csv').value=r.map(x=>x.join(',')).join('\n');build(r)});
+$('#go').onclick=()=>build(parseCSV($('#csv').value));
+$('#file').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  if(f.size>1048576){$('#err').textContent='ไฟล์ใหญ่เกิน 1 MB';return}
+  const rd=new FileReader();
+  rd.onload=()=>{$('#csv').value=rd.result;build(parseCSV(rd.result))};
+  rd.onerror=()=>{$('#err').textContent='เปิดไฟล์ไม่ได้ ลองบันทึกเป็น CSV (UTF-8) อีกครั้ง'};
+  rd.readAsText(f);
+};
+
+/* ข้อ 3: โทรศัพท์หมุนตามการเลื่อน */
+const ph=$('#phone'),pbs=$$('#pb i'),PH=[40,62,48,78,66,92];
+function upPhone(){
+  const r=$('#sxPhone').getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight-r.top)/(innerHeight+r.height)));
+  if(!RM)ph.style.transform=`rotateY(${(.5-p)*44}deg) rotateX(${(p-.5)*10}deg)`;
+  pbs.forEach((b,k)=>b.style.height=(RM?1:Math.min(1,Math.max(0,p*2-k*.1)))*PH[k]+'%');
+}
+on(window,'scroll',()=>requestAnimationFrame(upPhone),{passive:true});upPhone();
+
+/* ข้อ 4: ก่อน/หลัง */
+const XR=[['ก.ย.','412,300','210,400','201,900','#REF!'],['ต.ค.','455,800','226,900','228,900','?'],['พ.ย.','482,300','241,200','240,100','#N/A'],['รวม','1,350,400','678,500','670,900','ไม่ตรง'],['','','','',''],['สำเนา_ใหม่_final2.xlsx','','','','']];
+$('#xtbl').innerHTML='<tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>'+XR.map((r,i)=>`<tr><td style="text-align:center;background:#e8eee8">${i+1}</td>${r.map(c=>`<td class="${/#|\?|ไม่ตรง/.test(c)?'x':''}">${c}</td>`).join('')}</tr>`).join('');
+$('#rg').oninput=e=>$('#ba').style.setProperty('--p',e.target.value+'%');
+
+/* ข้อ 6: ข้อมูลไหลเข้าฐานเดียว แพ็กเก็ตข้อมูลวิ่งตามเส้นโค้ง ฐานข้อมูลนับแถว ปลายทางสว่างเมื่อได้รับ */
+const cv=$('#fl'),cx=cv.getContext('2d');
+const SRC=['ยอดขาย','หน้าร้าน','โซเชียล','ออเดอร์','รายจ่าย'],OUT=['Excel','Power BI','เว็บไซต์'];
+let W=0,H=0,col={a:'#217346',b:'#4472c4',t:'#1f1f1f',c:'#fff'},ps=[],rip=[],lit=[0,0,0],hp=0,rows=12480,vis=false,run=false,last=0,nxt=[];
+const ez=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const bz=(p,t)=>{const u=1-t;return[u*u*u*p[0][0]+3*u*u*t*p[1][0]+3*u*t*t*p[2][0]+t*t*t*p[3][0],u*u*u*p[0][1]+3*u*u*t*p[1][1]+3*u*t*t*p[2][1]+t*t*t*p[3][1]]};
+function size(){
+  const d=devicePixelRatio||1;W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);
+  const s=getComputedStyle(document.documentElement),g=n=>s.getPropertyValue(n).trim();
+  col={a:g('--k1'),b:g('--k2'),t:g('--tx'),c:g('--tile')};
+}
+const G=()=>({cw:W<560?84:112,hx:W/2,hy:H/2-10,ox:W-Math.max(46,W*.09)});
+const sA=i=>[14+G().cw,34+i*(H-68)/(SRC.length-1)];       // จุดออกของชิปแหล่งข้อมูล
+const oA=i=>[G().ox-22,48+i*(H-112)/(OUT.length-1)];       // จุดเข้าของปลายทาง
+const pIn=i=>{const a=sA(i),b=[G().hx-30,G().hy],m=(b[0]-a[0])/2;return[a,[a[0]+m,a[1]],[b[0]-m,b[1]],b]};
+const pOut=i=>{const a=[G().hx+30,G().hy],b=oA(i),m=(b[0]-a[0])/2;return[a,[a[0]+m,a[1]],[b[0]-m,b[1]],b]};
+function rr(x,y,w,h,r){cx.beginPath();cx.moveTo(x+r,y);cx.arcTo(x+w,y,x+w,y+h,r);cx.arcTo(x+w,y+h,x,y+h,r);cx.arcTo(x,y+h,x,y,r);cx.arcTo(x,y,x+w,y,r);cx.closePath()}
+function frame(){
+  const g=G(),fs=W<560?12:13;cx.clearRect(0,0,W,H);cx.textAlign='center';
+  cx.lineWidth=1.5;cx.strokeStyle=col.t;cx.globalAlpha=.14;
+  const ln=p=>{cx.beginPath();cx.moveTo(...p[0]);cx.bezierCurveTo(...p[1],...p[2],...p[3]);cx.stroke()};
+  SRC.forEach((_,i)=>ln(pIn(i)));OUT.forEach((_,i)=>ln(pOut(i)));cx.globalAlpha=1;
+  SRC.forEach((l,i)=>{const[x,y]=sA(i);rr(x-g.cw,y-15,g.cw,30,8);cx.fillStyle=col.c;cx.fill();cx.strokeStyle=col.t;cx.globalAlpha=.25;cx.lineWidth=1;cx.stroke();cx.globalAlpha=1;
+    cx.fillStyle=col.b;cx.beginPath();cx.arc(x-g.cw+13,y,4,0,7);cx.fill();cx.fillStyle=col.t;cx.font='600 '+fs+'px Sarabun,sans-serif';cx.fillText(l,x-g.cw/2+7,y+4.5)});
+  rip.forEach(r=>{cx.strokeStyle=col.a;cx.globalAlpha=.4*(1-r.t);cx.lineWidth=2;cx.beginPath();cx.arc(g.hx,g.hy,30+r.t*40,0,7);cx.stroke()});cx.globalAlpha=1;
+  const s=1+hp*.07,rx=28*s,ry=9*s,bh=40*s;                   // ฐานข้อมูลทรงกระบอก ขยายเล็กน้อยเมื่อรับข้อมูล
+  cx.fillStyle=col.a;cx.fillRect(g.hx-rx,g.hy-bh/2,2*rx,bh);
+  cx.beginPath();cx.ellipse(g.hx,g.hy+bh/2,rx,ry,0,0,7);cx.fill();cx.beginPath();cx.ellipse(g.hx,g.hy-bh/2,rx,ry,0,0,7);cx.fill();
+  cx.fillStyle='#fff';cx.globalAlpha=.3;cx.beginPath();cx.ellipse(g.hx,g.hy-bh/2,rx,ry,0,0,7);cx.fill();
+  cx.strokeStyle='#fff';cx.lineWidth=1.5;cx.globalAlpha=.4;cx.beginPath();cx.ellipse(g.hx,g.hy,rx,ry,0,0,Math.PI);cx.stroke();cx.globalAlpha=1;
+  cx.fillStyle=col.t;cx.font='700 '+(fs+1)+'px Sarabun,sans-serif';cx.fillText('ฐานข้อมูลเดียว',g.hx,g.hy+58);
+  cx.globalAlpha=.7;cx.font='400 '+(fs-1)+'px Sarabun,sans-serif';cx.fillText('รวมแล้ว '+Math.round(rows).toLocaleString('th-TH')+' แถว',g.hx,g.hy+76);cx.globalAlpha=1;
+  OUT.forEach((l,i)=>{const[x,ay]=oA(i),y=ay-22,C=['#217346','#f2c811','#4472c4'][i];
+    cx.save();if(lit[i]>0){cx.shadowColor=C;cx.shadowBlur=22*lit[i]}rr(x,y,44,44,10);cx.fillStyle=C;cx.fill();cx.restore();
+    if(i===0){cx.fillStyle='#fff';cx.font='700 24px Sarabun,sans-serif';cx.fillText('X',x+22,y+31)}
+    else if(i===1){cx.fillStyle='#252423';cx.fillRect(x+11,y+20,6,14);cx.fillRect(x+19,y+12,6,22);cx.fillRect(x+27,y+4,6,30)}
+    else{cx.strokeStyle='#fff';cx.lineWidth=2;rr(x+9,y+11,26,22,3);cx.stroke();cx.fillStyle='#fff';cx.fillRect(x+9,y+17,26,2)}
+    cx.fillStyle=col.t;cx.font='600 '+fs+'px Sarabun,sans-serif';cx.fillText(l,x+22,y+64)});
+  ps.forEach(p=>{if(p.t<0)return;const P=p.k==='in'?pIn(p.i):pOut(p.i);        // แพ็กเก็ตข้อมูล พร้อมหางจาง
+    for(let j=3;j>=0;j--){const[x,y]=bz(P,ez(Math.max(0,p.t-j*.04))),z=10-j*1.6;cx.globalAlpha=1-j*.26;cx.fillStyle=p.k==='in'?col.b:col.a;rr(x-z/2,y-z/2,z,z,2);cx.fill()}
+    cx.globalAlpha=1});
+}
+function step(ts){
+  const dt=Math.min(60,ts-(last||ts)),born=[];last=ts;
+  SRC.forEach((_,i)=>{if(nxt[i]==null)nxt[i]=ts+i*350;if(ts>=nxt[i]){ps.push({k:'in',i,t:0,d:1700+Math.random()*500});nxt[i]=ts+1000+Math.random()*1600}});
+  ps=ps.filter(p=>{p.t+=dt/p.d;if(p.t<1)return true;
+    if(p.k==='in'){rows+=20+Math.random()*70;hp=1;if(rip.length<4)rip.push({t:0});born.push({k:'out',i:Math.floor(Math.random()*OUT.length),t:-.25,d:1300})}
+    else lit[p.i]=1;return false}).concat(born);
+  lit=lit.map(v=>Math.max(0,v-dt/600));hp=Math.max(0,hp-dt/350);rip=rip.filter(r=>(r.t+=dt/900)<1);
+}
+function loop(ts){if(!vis){run=false;return}step(ts);frame();requestAnimationFrame(loop)}
+size();if(RM)ps=SRC.map((_,i)=>({k:'in',i,t:.3+i*.1,d:1}));frame();
+on(window,'resize',()=>{size();frame()});
+{const vio=new IntersectionObserver(es=>{vis=es[0].isIntersecting;last=0;if(vis&&!RM&&!run){run=true;requestAnimationFrame(loop)}});vio.observe(cv);SXC.push(()=>{vio.disconnect();vis=false})}
+
+/* ข้อ 7: ถามข้อมูล (จับคำด้วยกฎ ไม่ใช้ AI ภายนอก) */
+const MN=['กันยายน','ตุลาคม','พฤศจิกายน'];
+const DB={sales:{n:'ยอดขาย',p:'฿',v:[412300,455800,482300]},orders:{n:'ออเดอร์',p:'',v:[1104,1187,1284]},profit:{n:'กำไรสุทธิ',p:'฿',v:[78200,87100,96450]},exp:{n:'รายจ่าย',p:'฿',v:[210400,226900,241200]}};
+function answer(t){
+  const k=/ออเดอร์|คำสั่งซื้อ/.test(t)?'orders':/กำไร/.test(t)?'profit':/รายจ่าย|ค่าใช้จ่าย/.test(t)?'exp':/ยอดขาย|ขาย|รายได้/.test(t)?'sales':null;
+  if(!k)return '<p class="muted">ตัวอย่างนี้ตอบได้เฉพาะ ยอดขาย ออเดอร์ กำไร และรายจ่าย ลองพิมพ์ใหม่ เช่น "กำไรเดือนพฤศจิกายน"</p>';
+  const m=/กันยา|ก\.ย\./.test(t)?0:/ตุลา|ต\.ค\./.test(t)?1:/พฤศจิกา|พ\.ย\.|ล่าสุด|เดือนนี้/.test(t)?2:null,D=DB[k];
+  if(m!==null){
+    const v=D.v[m],d=m?(v/D.v[m-1]-1)*100:null;
+    return `<span class="muted">${D.n} เดือน${MN[m]}</span><br><b class="big">${D.p}${fmt(v)}</b>${d===null?'':`<p class="muted">${d>=0?'เพิ่มขึ้น':'ลดลง'} ${Math.abs(d).toFixed(1)}% จากเดือน${MN[m-1]}</p>`}`;
+  }
+  const mx=Math.max(...D.v);
+  return `<span class="muted">${D.n}แต่ละเดือน</span><div class="bars go" style="height:130px">${D.v.map((v,i)=>`<div class="col"><em>${D.p}${fmt(v)}</em><i style="--h:${v/mx*100}%"></i><small>${MN[i]}</small></div>`).join('')}</div>`;
+}
+const ask=t=>{if(t.trim())$('#ans').innerHTML=answer(t)};
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter')ask(e.target.value)});
+$$('.ask .chip').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent;ask(b.textContent)});
+
+build(PRE.online);$('#csv').value=PRE.online.map(x=>x.join(',')).join('\n');
+
+{const mo=new MutationObserver(()=>{size();frame()});mo.observe(document.documentElement,{attributes:true,attributeFilter:['class']});SXC.push(()=>mo.disconnect())}
+
+}
 function viewIntro() {
   $('#main').innerHTML = '';
   $('#main').appendChild($('#introT').content.cloneNode(true));
@@ -523,6 +832,7 @@ function viewIntro() {
     dots: [...document.querySelectorAll('#dots i')],
     diagram: g('diagram'), dash: g('dash'), dw: [...document.querySelectorAll('#dash > .dw')] };
   updIntro();
+  initSx();
 }
 function updIntro() {
   if (S.v !== 'intro' || !IN || !IN.story.isConnected) return;
@@ -733,8 +1043,12 @@ document.addEventListener('click', e => {
 });
 
 function render() {
+  sxOff();
   kill();
-  document.querySelectorAll('aside [data-v]').forEach(b => b.classList.toggle('on', b.dataset.v === S.v));
+  /* หน้าแดชบอร์ดใช้ธีม Power BI ส่วนหน้าแรกใช้ธีม Excel */
+  const pb = S.v !== 'intro'; document.documentElement.classList.toggle('pbi', pb); PAL = pb ? PAL_PBI : PAL_XL;
+  document.querySelectorAll('aside [data-v],#tabs [data-v]').forEach(b => b.classList.toggle('on', b.dataset.v === S.v));
+  { const T = { intro: 'หน้าแรก', home: 'ภาพรวมธุรกิจ', food: 'ธุรกิจอาหาร', online: 'ขายของออนไลน์', social: 'วัดผลโซเชียล', fin: 'รายรับ / รายจ่าย' }, f = document.getElementById('fxt'); if (f) f.textContent = '=DASHBOARD("' + T[S.v] + '")'; }
   document.body.classList.toggle('isIntro', S.v === 'intro');
   if (S.v === 'intro') viewIntro(); else if (S.v === 'home') viewHome(); else if (S.v === 'fin') viewFin(); else viewBiz(S.v);
 
@@ -835,6 +1149,13 @@ function hideSplash() {
 if (document.readyState === 'complete') hideSplash(); else addEventListener('load', hideSplash);
 setTimeout(hideSplash, 6000);
 
+/* แถบหัวคอลัมน์ A, B, C... และเลขแถวแบบ Excel (ตกแต่งอย่างเดียว) */
+(function () {
+  let h = '<b></b>', r = '';
+  for (let i = 0; i < 40; i++) { let n = i, s = ''; do { s = String.fromCharCode(65 + n % 26) + s; n = Math.floor(n / 26) - 1; } while (n >= 0); h += '<span>' + s + '</span>'; }
+  for (let i = 1; i <= 60; i++) r += '<span>' + i + '</span>';
+  document.getElementById('cols').innerHTML = h; document.getElementById('rows').innerHTML = r;
+})();
 render();
 setMode(false);
 </script>
