@@ -255,7 +255,6 @@ html.pbi #tabs button.on{background:var(--gl);color:var(--tx);box-shadow:inset 0
 @media(prefers-reduced-motion:reduce){.sp-tile .pie,.sp-tile .ys{animation:none}}
 .top .brand{box-shadow:0 0 0 1.5px rgba(255,255,255,.7)}
 @media(max-width:860px){.intro .df{padding-bottom:44px}.intro .scene{aspect-ratio:auto;height:100%;min-height:0;width:calc(100% + 34px);margin:0 -24px 0 -10px;justify-self:stretch}}
-#cellsel{position:fixed;z-index:17;box-sizing:border-box;border:2px solid var(--ac);pointer-events:none}#cellsel.rng{background:rgba(33,115,70,.12)}html.dark #cellsel.rng{background:rgba(78,194,127,.16)}#cellsel i{position:absolute;right:-5px;bottom:-5px;width:7px;height:7px;background:var(--ac);border:1px solid var(--sheet)}#cols span.sel,#rows span.sel{background:#d2e3da;color:var(--ac);font-weight:700}html.dark #cols span.sel,html.dark #rows span.sel{background:rgba(78,194,127,.25)}#cols span.sel{border-bottom:2px solid var(--ac)}#rows span.sel{border-right:2px solid var(--ac)}html.pbi #cellsel{display:none}html:not(.pbi) body{cursor:cell}
 </style>
 </head>
 <body>
@@ -1099,7 +1098,7 @@ function render() {
   /* หน้าแดชบอร์ดใช้ธีม Power BI ส่วนหน้าแรกใช้ธีม Excel */
   const pb = S.v !== 'intro'; document.documentElement.classList.toggle('pbi', pb); PAL = pb ? PAL_PBI : PAL_XL;
   document.querySelectorAll('aside [data-v],#tabs [data-v]').forEach(b => b.classList.toggle('on', b.dataset.v === S.v));
-  { const T = { intro: 'หน้าแรก', home: 'ภาพรวมธุรกิจ', food: 'ธุรกิจอาหาร', online: 'ขายของออนไลน์', social: 'วัดผลโซเชียล', fin: 'รายรับ / รายจ่าย' }; window.A1TXT = '=DASHBOARD("' + T[S.v] + '")'; if (typeof selPaint === 'function') selPaint(); }
+  { const T = { intro: 'หน้าแรก', home: 'ภาพรวมธุรกิจ', food: 'ธุรกิจอาหาร', online: 'ขายของออนไลน์', social: 'วัดผลโซเชียล', fin: 'รายรับ / รายจ่าย' }, f = document.getElementById('fxt'); if (f) f.textContent = '=DASHBOARD("' + T[S.v] + '")'; }
   document.body.classList.toggle('isIntro', S.v === 'intro');
   if (S.v === 'intro') viewIntro(); else if (S.v === 'home') viewHome(); else if (S.v === 'fin') viewFin(); else viewBiz(S.v);
 
@@ -1206,61 +1205,6 @@ setTimeout(hideSplash, 6000);
   for (let i = 0; i < 40; i++) { let n = i, s = ''; do { s = String.fromCharCode(65 + n % 26) + s; n = Math.floor(n / 26) - 1; } while (n >= 0); h += '<span>' + s + '</span>'; }
   for (let i = 1; i <= 60; i++) r += '<span>' + i + '</span>';
   document.getElementById('cols').innerHTML = h; document.getElementById('rows').innerHTML = r;
-})();
-
-/* คลิก / แตะช่องตารางด้านหลังได้เหมือน Excel: เลือกช่อง ลากเลือกช่วง ชื่อช่องและแถบสูตรเปลี่ยนตาม */
-(function () {
-  const sel = document.createElement('div');
-  sel.id = 'cellsel'; sel.setAttribute('aria-hidden', 'true'); sel.innerHTML = '<i></i>';
-  document.body.appendChild(sel);
-  const nb = document.querySelector('#fbar .nb'), fx = document.getElementById('fxt');
-  const colsEl = document.getElementById('cols'), rowsEl = document.getElementById('rows');
-  const CW = 96, RH = 24, TOP = 98, MAXC = 39, MAXR = 59;
-  let a = { c: 0, r: 0 }, b = { c: 0, r: 0 }, drag = false, tap = null;
-  const left = () => matchMedia('(max-width:860px)').matches ? 0 : 36;
-  const colName = n => { let s = ''; do { s = String.fromCharCode(65 + n % 26) + s; n = Math.floor(n / 26) - 1; } while (n >= 0); return s; };
-  const ref = p => colName(p.c) + (p.r + 1);
-  const cellAt = (x, y) => ({ c: Math.max(0, Math.min(MAXC, Math.floor((x - left()) / CW))), r: Math.max(0, Math.min(MAXR, Math.floor((y - TOP) / RH))) });
-  const SKIP = 'a,button,input,textarea,select,label,canvas,aside,#tabs,#fbar,#cols,#rows,#splash,.pill,.chip,[role=button]';
-  const ok = (t, x, y) => !document.documentElement.classList.contains('pbi') && !(t.closest && t.closest(SKIP)) && y >= TOP && y <= innerHeight - 28 && x >= left();
-  window.selPaint = function () {
-    const c0 = Math.min(a.c, b.c), c1 = Math.max(a.c, b.c), r0 = Math.min(a.r, b.r), r1 = Math.max(a.r, b.r);
-    const one = c0 === c1 && r0 === r1;
-    sel.style.left = (left() + c0 * CW) + 'px'; sel.style.top = (TOP + r0 * RH) + 'px';
-    sel.style.width = ((c1 - c0 + 1) * CW + 1) + 'px'; sel.style.height = ((r1 - r0 + 1) * RH + 1) + 'px';
-    sel.classList.toggle('rng', !one);
-    nb.textContent = one ? ref(a) : ref({ c: c0, r: r0 }) + ':' + ref({ c: c1, r: r1 });
-    fx.textContent = one && c0 === 0 && r0 === 0 ? (window.A1TXT || '') : '';
-    document.querySelectorAll('#cols .sel,#rows .sel').forEach(e => e.classList.remove('sel'));
-    for (let c = c0; c <= c1; c++) colsEl.children[c + 1] && colsEl.children[c + 1].classList.add('sel');
-    for (let r = r0; r <= r1; r++) rowsEl.children[r] && rowsEl.children[r].classList.add('sel');
-  };
-  /* เมาส์: กดแล้วลากเลือกช่วงได้ ถือ Shift ค้างเพื่อขยายช่วง */
-  addEventListener('mousedown', e => {
-    if (e.button !== 0 || !ok(e.target, e.clientX, e.clientY)) return;
-    const p = cellAt(e.clientX, e.clientY);
-    if (e.shiftKey) b = p; else a = b = p;
-    drag = true; selPaint();
-  });
-  addEventListener('mousemove', e => {
-    if (!drag) return;
-    if (!(e.buttons & 1)) { drag = false; return; }
-    b = cellAt(e.clientX, e.clientY); selPaint();
-    const g = getSelection(); if (g && g.rangeCount) g.removeAllRanges();
-  });
-  addEventListener('mouseup', () => { drag = false; });
-  /* นิ้ว: แตะครั้งเดียวเลือกช่อง (ถ้าลากเพื่อเลื่อนหน้าจะไม่เลือก) */
-  addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; tap = { x: e.clientX, y: e.clientY, t: e.target, at: Date.now() }; });
-  addEventListener('pointerup', e => {
-    if (e.pointerType === 'mouse' || !tap) return;
-    const k = tap; tap = null;
-    if (Math.hypot(e.clientX - k.x, e.clientY - k.y) > 10 || Date.now() - k.at > 600) return;
-    if (!ok(k.t, k.x, k.y)) return;
-    a = b = cellAt(k.x, k.y); selPaint();
-  });
-  addEventListener('pointercancel', () => { tap = null; });
-  addEventListener('resize', selPaint);
-  selPaint();
 })();
 render();
 setMode(false);
